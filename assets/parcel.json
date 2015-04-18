@@ -1,7 +1,8 @@
 {
     "textures" : [
         { "id" : "assets/maps/tileset.png" },
-        { "id" : "assets/sprites/featherrock.png" }
+        { "id" : "assets/sprites/featherrock.png" },
+        { "id" : "assets/sprites/ring.png" }
     ],
     "shaders" : [
     ],
@@ -11,7 +12,10 @@
         { "id" : "assets/music/theme.ogg", "name" : "theme", "is_stream" : false}
     ],
     "text" : [
+        { "id" : "assets/maps/dev.tmx" }
     ],
     "json" : [
+        { "id" : "assets/tweakconfig.json" },
+        { "id" : "assets/sprites/featherrock.json" }
     ]
 }
