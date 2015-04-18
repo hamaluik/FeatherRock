@@ -1,0 +1,17 @@
+{
+    "textures" : [
+        { "id" : "assets/maps/tileset.png" },
+        { "id" : "assets/sprites/featherrock.png" }
+    ],
+    "shaders" : [
+    ],
+    "fonts" : [
+    ],
+    "sounds" : [
+        { "id" : "assets/music/theme.ogg", "name" : "theme", "is_stream" : false}
+    ],
+    "text" : [
+    ],
+    "json" : [
+    ]
+}
