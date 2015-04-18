@@ -802,7 +802,15 @@
   <object x="-16" y="-16" width="16" height="64"/>
  </objectgroup>
  <objectgroup color="#00ff00" name="Spawns">
-  <object name="FeatherRock" x="128" y="144" width="16" height="16">
+  <object name="FeatherRock" x="96" y="32" width="16" height="16">
+   <ellipse/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#aaaa00" name="Breakable">
+  <object x="96" y="80" width="16" height="16">
+   <ellipse/>
+  </object>
+  <object x="160" y="80" width="16" height="16">
    <ellipse/>
   </object>
  </objectgroup>

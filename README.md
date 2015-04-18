@@ -31,8 +31,8 @@ This is that story.
 - [x] Flap your feathers to fly and move
     + [x] Can't move when on ground (except to fly)
 - [x] Use the mouse to dive-bomb
-    + [ ] Can't dive-bomb upwards
-- [ ] Use dive-bombing to break breakable blocks
+    + [x] Can't dive-bomb upwards
+- [x] Use dive-bombing to break breakable blocks
 - [ ] Magical energy runs out over time
     + [ ] Collect energy from elvish souls scattered about
 - [ ] Hit enemies with enough speed to kill them

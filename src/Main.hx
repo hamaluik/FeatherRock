@@ -68,8 +68,8 @@ class Main extends luxe.Game {
 		});
 
 		// physics drawing
-		//drawer = new DebugDraw();
-		//Luxe.physics.nape.debugdraw = drawer;
+		drawer = new DebugDraw();
+		Luxe.physics.nape.debugdraw = drawer;
 
 		// load featherrock
 
@@ -104,6 +104,12 @@ class Main extends luxe.Game {
 					}
 				}
 
+				case "Breakable": {
+					for(object in group.objects) {
+						spawnBreakableBlock(object.pos);
+					}
+				}
+
 				default: {}
 			}
 		}
@@ -131,11 +137,26 @@ class Main extends luxe.Game {
 		featherrock.add(new FeatherRockAnimator());
 		featherrock.add(new MouseBulletTime());
 		featherrock.add(new components.LazyCameraFollow());
-		featherrock.add(new components.ShakeCameraOnLand());
+		featherrock.add(new components.ShakeCameraOnHit());
 		featherrock.add(new components.FeatherRockDiver());
 		featherrock.add(new components.FeatherRockDiveDrawer());
 
 		centerCameraAt(pos);
+	}
+
+	function spawnBreakableBlock(pos:Vector) {
+		var blockTexture:Texture = Luxe.resources.find_texture("assets/sprites/breakable_block.png");
+		blockTexture.filter = FilterType.nearest;
+
+		var block = new Sprite({
+			name: 'BreakableBlock',
+			name_unique: true,
+			pos: pos,
+			size: new Vector(16, 16),
+			texture: blockTexture
+		});
+		block.add(new components.Breakable(featherrock));
+		block.add(new components.OneShotParticlesOnDestroy());
 	}
 
 	inline public static function centerCameraAt(_c:Vector) {

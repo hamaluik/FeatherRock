@@ -2,7 +2,8 @@
     "textures" : [
         { "id" : "assets/maps/tileset.png" },
         { "id" : "assets/sprites/featherrock.png" },
-        { "id" : "assets/sprites/ring.png" }
+        { "id" : "assets/sprites/ring.png" },
+        { "id" : "assets/sprites/breakable_block.png" }
     ],
     "shaders" : [
     ],

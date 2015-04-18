@@ -8,8 +8,8 @@ import nape.geom.Vec2;
 
 class FeatherRockDiver extends Component {
 	public var dragging(default, null):Bool = false;
-	public var start(default, null):Vector;
-	public var end(default, null):Vector;
+	public var start(default, null):Vector = new Vector();
+	public var end(default, null):Vector = new Vector();
 	var physics:FeatherRockPhysics;
 	var groundDetector:components.GroundDetector;
 
@@ -32,7 +32,8 @@ class FeatherRockDiver extends Component {
 	}
 
 	override function onmouseup(e:MouseEvent) {
-		if(!groundDetector.onGround) {
+		end = Luxe.camera.screen_point_to_world(e.pos);
+		if(!groundDetector.onGround && start.y >= end.y) {
 			var impulse:Vec2 = Vec2.weak(start.x - end.x, start.y - end.y);
 			impulse.length = TweakConfig.diveStrength;
 			physics.body.applyImpulse(impulse);	

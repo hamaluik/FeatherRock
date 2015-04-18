@@ -6,6 +6,7 @@ import nape.callbacks.CbEvent;
 import nape.callbacks.InteractionCallback;
 import nape.callbacks.InteractionListener;
 import nape.callbacks.InteractionType;
+import nape.callbacks.OptionType;
 import nape.geom.Vec2;
 
 class GroundDetector extends Component {
@@ -24,11 +25,11 @@ class GroundDetector extends Component {
 	override function init() {
 		physics = cast entity.get('FeatherRockPhysics');
 
-		startListener = new InteractionListener(CbEvent.ONGOING, InteractionType.COLLISION, PhysicsTypes.ground, PhysicsTypes.featherrock, onOngoingTouchingGround);
+		startListener = new InteractionListener(CbEvent.ONGOING, InteractionType.COLLISION, new OptionType([PhysicsTypes.ground, PhysicsTypes.breakable]), PhysicsTypes.featherrock, onOngoingTouchingGround);
 		Luxe.physics.nape.space.listeners.add(startListener);
 
-		startListener = new InteractionListener(CbEvent.END, InteractionType.COLLISION, PhysicsTypes.ground, PhysicsTypes.featherrock, onEndTouchingGround);
-		Luxe.physics.nape.space.listeners.add(startListener);
+		endListener = new InteractionListener(CbEvent.END, InteractionType.COLLISION, new OptionType([PhysicsTypes.ground, PhysicsTypes.breakable]), PhysicsTypes.featherrock, onEndTouchingGround);
+		Luxe.physics.nape.space.listeners.add(endListener);
 	}
 
 	function onOngoingTouchingGround(cb:InteractionCallback) {
@@ -42,7 +43,7 @@ class GroundDetector extends Component {
 				else if(normal.x < -0.1) {
 					physics.canMoveRight = false;
 				}
-				if(normal.y < -0.1) {
+				if((cb.int1.cbTypes.has(PhysicsTypes.breakable) && normal.y > 0.1) || (!cb.int1.cbTypes.has(PhysicsTypes.breakable) && normal.y < -0.1)) {
 					physics.canMoveLeft = false;
 					physics.canMoveRight = false;
 					onGround = true;
