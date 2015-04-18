@@ -1,11 +1,83 @@
-# NAME
+# FeatherRock
 
-DESCRIPTIONS
+## Story
 
->PLEASE NOTE! This demo was created using an ALPHA version of [Luxe](http://luxeengine.com/). As such, it may very well be obsolete by the time you look at it. It is current and working as of `alpha-2.0`, however the API can and likely will change without any hesitation! You've been warned!
+Ages ago, under a long-forgotten mountain, there lived an ancient race of Dwarves whose name has been lost to time.
 
-[Click here to check out a live demo.](http://fuzzywuzzie.github.io/NAME/)
+These ancient creatures plundered the earth to become wealthy and powerful beyond all measure.
 
-A screenshot of it in action:
+With their accrued power, the dwarves founded a lineage of magical shamans lasting a thousand generations, each more powerful than the last.
 
-![Screenshot](https://raw.github.com/FuzzyWuzzie/NAME/master/screenshot.png)
+The shamans wielded their terrifying magical constructs on the battlefield to wreak destruction on their enemies, ensuring the dwarves' legacy.
+
+That is, until Todd.
+
+*clang* *clang* *clang*
+
+FEATHER
+
+*clang* *clang* *clang*
+
+ROCK
+
+*clang* *clang* *clang*
+
+FEATHERROCK!
+
+This is that story.
+
+## Mechanics
+
+- [x] Flap your feathers to fly and move
+    + [x] Can't move when on ground (except to fly)
+- [x] Use the mouse to dive-bomb
+    + [ ] Can't dive-bomb upwards
+- [ ] Use dive-bombing to break breakable blocks
+- [ ] Magical energy runs out over time
+    + [ ] Collect energy from elvish souls scattered about
+- [ ] Hit enemies with enough speed to kill them
+- [ ] Avoid fire, it will burn your feathers
+
+## Todo
+
+### Programming
+
+- [ ] Mechanics
+- [ ] Cinematics
+- [ ] High scores?
+
+### Art
+
+- [ ] Prototyping assets
+    + FeatherRock
+        * [x] Flying
+        * [x] Diving
+        * [x] On ground
+        * [ ] Getting burnt
+    + [x] Tileset
+    + [ ] Elf
+    + [ ] Goblin
+- [ ] UI
+- [ ] Intro cinematic
+- [ ] Particle effects
+- [ ] Final Assets
+    + FeatherRock
+        * [ ] Flying
+        * [ ] Diving
+        * [ ] On ground
+        * [ ] Getting burnt
+- [ ] Post-processing effects?
+
+### Sound
+
+- [ ] Various thwumps
+- [ ] Theme music
+- [ ] Mood music
+
+### Levels
+
+1. Introduction to flying + diving
+2. Introduction to killing elves for magic
+3. Introduction to breaking blocks
+4. Introduction to killing enemies
+5. Introduction to avoiding fire
