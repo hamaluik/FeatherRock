@@ -3,11 +3,13 @@
         { "id" : "assets/maps/tileset.png" },
         { "id" : "assets/sprites/featherrock.png" },
         { "id" : "assets/sprites/ring.png" },
-        { "id" : "assets/sprites/breakable_block.png" }
+        { "id" : "assets/sprites/breakable_block.png" },
+        { "id" : "assets/sprites/elf.png" }
     ],
     "shaders" : [
     ],
     "fonts" : [
+        { "id" : "assets/Minecraftia.fnt" }
     ],
     "sounds" : [
         { "id" : "assets/music/theme.ogg", "name" : "theme", "is_stream" : false}
@@ -17,6 +19,7 @@
     ],
     "json" : [
         { "id" : "assets/tweakconfig.json" },
-        { "id" : "assets/sprites/featherrock.json" }
+        { "id" : "assets/sprites/featherrock.json" },
+        { "id" : "assets/sprites/elf.json" }
     ]
 }

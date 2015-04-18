@@ -25,10 +25,10 @@ class GroundDetector extends Component {
 	override function init() {
 		physics = cast entity.get('FeatherRockPhysics');
 
-		startListener = new InteractionListener(CbEvent.ONGOING, InteractionType.COLLISION, new OptionType([PhysicsTypes.ground, PhysicsTypes.breakable]), PhysicsTypes.featherrock, onOngoingTouchingGround);
+		startListener = new InteractionListener(CbEvent.ONGOING, InteractionType.COLLISION, new OptionType([PhysicsTypes.ground, PhysicsTypes.destructible]), PhysicsTypes.featherrock, onOngoingTouchingGround);
 		Luxe.physics.nape.space.listeners.add(startListener);
 
-		endListener = new InteractionListener(CbEvent.END, InteractionType.COLLISION, new OptionType([PhysicsTypes.ground, PhysicsTypes.breakable]), PhysicsTypes.featherrock, onEndTouchingGround);
+		endListener = new InteractionListener(CbEvent.END, InteractionType.COLLISION, new OptionType([PhysicsTypes.ground, PhysicsTypes.destructible]), PhysicsTypes.featherrock, onEndTouchingGround);
 		Luxe.physics.nape.space.listeners.add(endListener);
 	}
 
@@ -43,7 +43,7 @@ class GroundDetector extends Component {
 				else if(normal.x < -0.1) {
 					physics.canMoveRight = false;
 				}
-				if((cb.int1.cbTypes.has(PhysicsTypes.breakable) && normal.y > 0.1) || (!cb.int1.cbTypes.has(PhysicsTypes.breakable) && normal.y < -0.1)) {
+				if((cb.int1.cbTypes.has(PhysicsTypes.destructible) && normal.y > 0.1) || (!cb.int1.cbTypes.has(PhysicsTypes.destructible) && normal.y < -0.1)) {
 					physics.canMoveLeft = false;
 					physics.canMoveRight = false;
 					onGround = true;

@@ -13,31 +13,34 @@ import nape.callbacks.InteractionListener;
 import nape.callbacks.InteractionType;
 import nape.callbacks.OptionType;
 
-class Breakable extends Component {
+class Destructible extends Component {
 	var featherRock:Entity;
 	public var frPhysics:FeatherRockPhysics;
 	public var body:Body;
 	var hitListener:InteractionListener;
 	var lastVelocity:Float = 0;
 
-	public function new(featherRock:Entity) {
-		super({ name: 'Breakable' });
+	var bodyType:BodyType = BodyType.STATIC;
+
+	public function new(featherRock:Entity, ?bodyType:BodyType) {
+		super({ name: 'Destructible' });
 		this.featherRock = featherRock;
+		if(bodyType != null) this.bodyType = bodyType;
 	}
 
 	override function init() {
 		frPhysics = cast featherRock.get('FeatherRockPhysics');
 
-		body = new Body(BodyType.STATIC);
+		body = new Body(bodyType);
 		var spr:luxe.Sprite = cast entity;
 		body.shapes.add(new Polygon(Polygon.box(spr.size.x, spr.size.y)));
 		body.position.setxy(entity.pos.x, entity.pos.y);
 		body.space = Luxe.physics.nape.space;
-		body.cbTypes.add(PhysicsTypes.breakable);
+		body.cbTypes.add(PhysicsTypes.destructible);
 
 		if(Main.drawer != null) Main.drawer.add(body);
 
-		hitListener = new InteractionListener(CbEvent.BEGIN, InteractionType.COLLISION, PhysicsTypes.breakable, PhysicsTypes.featherrock, onFeatherRockHit);
+		hitListener = new InteractionListener(CbEvent.BEGIN, InteractionType.COLLISION, PhysicsTypes.destructible, PhysicsTypes.featherrock, onFeatherRockHit);
 		Luxe.physics.nape.space.listeners.add(hitListener);
 	}
 

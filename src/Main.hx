@@ -2,6 +2,7 @@ import components.FeatherRockAnimator;
 import components.FeatherRockPhysics;
 import components.GroundDetector;
 import components.MouseBulletTime;
+import phoenix.Camera;
 import luxe.Color;
 import luxe.components.sprite.SpriteAnimation;
 import luxe.Entity;
@@ -10,6 +11,7 @@ import luxe.importers.tiled.TiledObjectGroup;
 import luxe.Input;
 import luxe.Log;
 import luxe.physics.nape.DebugDraw;
+import luxe.Scene;
 import luxe.Sprite;
 import luxe.Vector;
 import nape.geom.Vec2;
@@ -17,14 +19,26 @@ import nape.phys.Body;
 import nape.phys.BodyType;
 import nape.shape.Circle;
 import nape.shape.Polygon;
+import phoenix.Batcher;
 import phoenix.Texture;
 import luxe.Parcel;
+
+typedef PlayerData = {
+	var magic:Float;
+}
 
 class Main extends luxe.Game {
 	var tilemap:TiledMap;
 	public static var drawer:DebugDraw;
 
 	var featherrock:Sprite;
+
+	var uiFont:phoenix.BitmapFont;
+	var hudBatcher:Batcher;
+
+	public static var playerData:PlayerData = {
+		magic: 100
+	};
 
 	override function ready() {
 		// load the parcel
@@ -68,10 +82,8 @@ class Main extends luxe.Game {
 		});
 
 		// physics drawing
-		drawer = new DebugDraw();
-		Luxe.physics.nape.debugdraw = drawer;
-
-		// load featherrock
+		//drawer = new DebugDraw();
+		//Luxe.physics.nape.debugdraw = drawer;
 
 		// load all the objects
 		for(group in tilemap.tiledmap_data.object_groups) {
@@ -110,11 +122,47 @@ class Main extends luxe.Game {
 					}
 				}
 
+				case "Elves": {
+					for(object in group.objects) {
+						spawnElf(object.pos);
+					}
+				}
+
+				case "Goal": {
+					for(object in group.objects) {
+						spawnExit(new Rectangle(object.pos.x, object.pos.y, object.width, object.height));
+					}
+				}
+
 				default: {}
 			}
 		}
 
+		createUI();
+
 	} // assetsLoaded
+
+	function createUI() {
+		hudBatcher = new Batcher(Luxe.renderer, 'hud batcher');
+		var hudView:Camera = new Camera();
+
+        uiFont = Luxe.resources.find_font("assets/Minecraftia.fnt");
+        for(t in uiFont.pages.iterator()) {
+        	t.filter = FilterType.nearest;
+        }
+
+		hudBatcher.view = hudView;
+		hudBatcher.layer = 2;
+		Luxe.renderer.add_batch(hudBatcher);
+		var magicText = new luxe.Text({
+			text: "Magic",
+			pos: new Vector(0, 0),
+			point_size: 16,
+			font: uiFont,
+			batcher: hudBatcher
+		});
+		magicText.add(new components.MagicDisplay(magicText));
+	}
 
 	function spawnFeatherRock(pos:Vector) {
 		var featherRockTexture:Texture = Luxe.resources.find_texture("assets/sprites/featherrock.png");
@@ -155,8 +203,35 @@ class Main extends luxe.Game {
 			size: new Vector(16, 16),
 			texture: blockTexture
 		});
-		block.add(new components.Breakable(featherrock));
-		block.add(new components.OneShotParticlesOnDestroy());
+		block.add(new components.Destructible(featherrock));
+		block.add(new components.OneShotParticlesOnDestroy(new Color().rgb(0x5d3465)));
+	}
+
+	function spawnElf(pos:Vector) {
+		var elfTexture:Texture = Luxe.resources.find_texture("assets/sprites/elf.png");
+		elfTexture.filter = FilterType.nearest;
+
+		var elf = new Sprite({
+			name: 'Elf',
+			name_unique: true,
+			pos: pos.add_xyz(8, 16),
+			size: new Vector(16, 32),
+			texture: elfTexture
+		});
+
+		var anim:SpriteAnimation = elf.add(new SpriteAnimation({ name: 'SpriteAnimation' }));
+		anim.add_from_json_object(Luxe.resources.find_json('assets/sprites/elf.json').json);
+		anim.animation = 'walk';
+		anim.play();
+
+		elf.add(new components.Destructible(featherrock, BodyType.DYNAMIC));
+		elf.add(new components.OneShotParticlesOnDestroy(new Color().rgb(0xcf0000)));
+		elf.add(new components.WalkBackAndForth(32));
+		elf.add(new components.GiveMagicOnDestroy(50));
+	}
+
+	function spawnExit(rect:luxe.Rectangle) {
+		
 	}
 
 	inline public static function centerCameraAt(_c:Vector) {

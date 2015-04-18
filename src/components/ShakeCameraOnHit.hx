@@ -20,13 +20,12 @@ class ShakeCameraOnHit extends Component {
 	override function init() {
 		physics = cast entity.get('FeatherRockPhysics');
 
-		hitListener = new InteractionListener(CbEvent.BEGIN, InteractionType.COLLISION, [PhysicsTypes.breakable, PhysicsTypes.ground], PhysicsTypes.featherrock, onHit);
+		hitListener = new InteractionListener(CbEvent.BEGIN, InteractionType.COLLISION, [PhysicsTypes.destructible, PhysicsTypes.ground], PhysicsTypes.featherrock, onHit);
 		Luxe.physics.nape.space.listeners.add(hitListener);
 	}
 
 	function onHit(cb:InteractionCallback) {
 		if(lastVelocity >= TweakConfig.screenShakeVelocity) Luxe.camera.shake(4);
-		trace("hit");
 	}
 
 	override function update(dt:Float) {

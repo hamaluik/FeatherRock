@@ -1,4 +1,5 @@
 {
 	"flapStrength": 10,
-	"moveSpeed": 100
+	"moveSpeed": 100,
+	"blockBreakVelocity": 750
 }

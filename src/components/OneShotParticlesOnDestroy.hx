@@ -6,8 +6,11 @@ import luxe.Color;
 import luxe.Particles;
 
 class OneShotParticlesOnDestroy extends Component {
-	public function new() {
+	var particleColor:Color = new Color().rgb(0xffffff);
+
+	public function new(?color:Color) {
 		super({ name: 'OneShotParticlesOnDestroy' });
+		if(color != null) particleColor = color;
 	}
 
 	override function ondestroy() {
@@ -23,8 +26,8 @@ class OneShotParticlesOnDestroy extends Component {
 			start_size_random: new Vector(0, 0),
 			end_size: new Vector(4, 4),
 			end_size_random: new Vector(0, 0),
-			start_color: new Color().rgb(0x5d3465),
-			end_color: new Color().rgb(0x5d3465)
+			start_color: particleColor,
+			end_color: particleColor
 		});
 		particles.pos = entity.pos;
 
