@@ -5,7 +5,10 @@
         { "id" : "assets/sprites/ring.png" },
         { "id" : "assets/sprites/breakable_block.png" },
         { "id" : "assets/sprites/elf.png" },
-        { "id" : "assets/sprites/goblin.png" }
+        { "id" : "assets/sprites/goblin.png" },
+        { "id" : "assets/cinematic/Cine-0.png" },
+        { "id" : "assets/cinematic/Cine-1.png" },
+        { "id" : "assets/cinematic/Cine-2.png" }
     ],
     "shaders" : [
         { "ps_id":"assets/shaders/isolate_bright.glsl" },
@@ -14,7 +17,7 @@
         { "ps_id":"assets/shaders/circleout.glsl" }
     ],
     "fonts" : [
-        { "id" : "assets/Minecraftia.fnt" }
+        { "id" : "assets/04b03.fnt" }
     ],
     "sounds" : [
         { "id" : "assets/music/theme.ogg", "name" : "theme", "is_stream" : false}
@@ -30,6 +33,7 @@
         { "id" : "assets/tweakconfig.json" },
         { "id" : "assets/sprites/featherrock.json" },
         { "id" : "assets/sprites/elf.json" },
-        { "id" : "assets/sprites/goblin.json" }
+        { "id" : "assets/sprites/goblin.json" },
+        { "id" : "assets/cinematic/cinematic.json" }
     ]
 }

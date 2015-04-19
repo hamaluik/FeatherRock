@@ -38,12 +38,13 @@ This is that story.
     + [x] Collect energy from elvish souls scattered about
 - [x] Avoid fire, it will burn your feathers
 - [x] Checkpoints
+- [ ] Shields
 
 ## Todo
 
 ### Programming
 
-- [ ] Mechanics
+- [x] Mechanics
 - [ ] Cinematics
 - [ ] High scores?
 

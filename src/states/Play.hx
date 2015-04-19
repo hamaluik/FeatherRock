@@ -48,6 +48,9 @@ class Play extends State {
 	}
 
 	override function onenter<T>(_:T) {
+		Luxe.camera.zoom = 2;
+		Luxe.renderer.clear_color = new Color().rgb(0x719ecf);
+
 		var level:String = "assets/maps/level" + Main.gameData.currentLevel + ".tmx";
 		trace("Loading level: " + level);
 

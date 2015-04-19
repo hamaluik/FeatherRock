@@ -26,6 +26,7 @@ import phoenix.Texture;
 import luxe.Parcel;
 import luxe.Rectangle;
 import luxe.States;
+import states.Cinematic;
 import states.Menu;
 import states.Play;
 import effects.Effects;
@@ -75,9 +76,6 @@ class Main extends luxe.Game {
 	function assetsLoaded(_) {
 		TweakConfig.load(Luxe.resources.find_json("assets/tweakconfig.json").json);
 
-		Luxe.renderer.clear_color = new Color().rgb(0x719ecf);
-		Luxe.camera.zoom = 2;
-
 		Luxe.input.bind_key('flap', Key.space);
 		Luxe.input.bind_key('flap', Key.key_w);
 		Luxe.input.bind_key('left', Key.key_a);
@@ -85,7 +83,7 @@ class Main extends luxe.Game {
 		Luxe.input.bind_key('right', Key.key_d);
 		Luxe.input.bind_key('right', Key.right);
 
-        uiFont = Luxe.resources.find_font("assets/Minecraftia.fnt");
+        uiFont = Luxe.resources.find_font("assets/04b03.fnt");
         for(t in uiFont.pages.iterator()) {
         	t.filter = FilterType.nearest;
         }
@@ -110,11 +108,12 @@ class Main extends luxe.Game {
 		effects.addEffect(transitionEffect);
 
 		fsm = new States();
+		fsm.add(new Cinematic());
 		fsm.add(new Menu());
 		fsm.add(new Play());
 
-		fsm.set('Play');
-		Actuate.tween(transitionEffect, 2, { transition: 1 });
+		fsm.set('Cinematic');
+		//Actuate.tween(transitionEffect, 2, { transition: 1 });
 
 	} // assetsLoaded
 

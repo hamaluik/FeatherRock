@@ -48,6 +48,6 @@ class CircleTransitionEffect extends Effect {
 		setupVisuals();
 		outputVisual.shader = shader;
 
-		transition = 0;
+		transition = 1;
 	}
 }

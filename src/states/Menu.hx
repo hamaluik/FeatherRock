@@ -16,14 +16,19 @@ class Menu extends State {
 	}
 
 	override function onenter<T>(_:T) {
-		trace("Entered menu");
+		Luxe.camera.pos.set_xy(0, 0);
+		Luxe.camera.zoom = 1;
+		Luxe.renderer.clear_color = new Color(0, 0, 0, 1);
+
 		var text:Text = new Text({
 			pos: Luxe.screen.mid,
 			text: "Menu",
 			align: TextAlign.center,
 			align_vertical: TextAlign.center,
 			color: new Color(1, 1, 1, 1),
-			scene: menuScene
+			scene: menuScene,
+			font: Main.uiFont,
+			point_size: 16
 		});
 		
 
