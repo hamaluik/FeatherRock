@@ -33,10 +33,10 @@ This is that story.
 - [x] Use the mouse to dive-bomb
     + [x] Can't dive-bomb upwards
 - [x] Use dive-bombing to break breakable blocks
-- [ ] Hit enemies with enough speed to kill them
+- [x] Hit enemies with enough speed to kill them
 - [ ] Magical energy runs out over time
     + [x] Collect energy from elvish souls scattered about
-- [ ] Avoid fire, it will burn your feathers
+- [x] Avoid fire, it will burn your feathers
 
 ## Todo
 
@@ -55,18 +55,18 @@ This is that story.
         * [x] On ground
         * [ ] Getting burnt
     + [x] Tileset
-    + [ ] Elf
-    + [ ] Goblin
+    + [x] Elf
+    + [x] Goblin
 - [ ] UI
 - [ ] Intro cinematic
-- [ ] Particle effects
+- [x] Particle effects
 - [ ] Final Assets
     + FeatherRock
         * [ ] Flying
         * [ ] Diving
         * [ ] On ground
         * [ ] Getting burnt
-- [ ] Post-processing effects?
+- [x] Post-processing effects?
 
 ### Sound
 

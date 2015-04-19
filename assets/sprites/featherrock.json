@@ -22,5 +22,11 @@
         "frameset": ["3"],
         "loop": "true",
         "speed": "8"
+    },
+    "burnt" : {
+        "frame_size":{ "x":"16", "y":"16" },
+        "frameset": ["7-9", "8"],
+        "loop": "true",
+        "speed": "2"
     }
 }

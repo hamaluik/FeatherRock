@@ -1065,7 +1065,7 @@
   <object x="0" y="-16" width="272" height="16"/>
   <object x="256" y="0" width="16" height="64"/>
  </objectgroup>
- <objectgroup color="#ffff00" name="Spawns">
+ <objectgroup color="#ffff00" name="FeatherRock">
   <object name="FeatherRock" x="16" y="16" width="16" height="16">
    <ellipse/>
   </object>

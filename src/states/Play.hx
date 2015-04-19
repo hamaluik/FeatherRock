@@ -4,6 +4,7 @@ import components.FeatherRockAnimator;
 import components.FeatherRockPhysics;
 import components.GroundDetector;
 import components.MouseBulletTime;
+import luxe.Particles;
 import phoenix.Camera;
 import luxe.Color;
 import luxe.components.sprite.SpriteAnimation;
@@ -29,11 +30,15 @@ import luxe.States;
 
 class Play extends State {
 	var tilemap:TiledMap;
-	var featherrock:Sprite;
+	var featherRock:Sprite;
 	var terrain:Array<Body> = new Array<Body>();
 	var hudBatcher:Batcher;
 
 	var playScene:Scene;
+
+	var spawnPoint:Vector = new Vector();
+
+	var featherRockIsBurning:Bool = false;
 
 	public function new() {
 		super({ name: 'Play' });
@@ -49,9 +54,7 @@ class Play extends State {
 			asset_path: "assets/maps/"
 		});
 
-		tilemap.display({
-			filter: FilterType.nearest
-		});
+		tilemap.display({ filter: FilterType.nearest });
 
 		Luxe.camera.pos.set_xy(0, 0);
 
@@ -77,13 +80,10 @@ class Play extends State {
 					}
 				}
 
-				case "Spawns": {
+				case "FeatherRock": {
 					for(object in group.objects) {
-						switch(object.name) {
-							case "FeatherRock": {
-								spawnFeatherRock(object.pos);
-							}
-						}
+						spawnPoint.set_xy(object.pos.x, object.pos.y);
+						spawnFeatherRock(spawnPoint);
 					}
 				}
 
@@ -108,6 +108,12 @@ class Play extends State {
 				case "Goal": {
 					for(object in group.objects) {
 						spawnExit(new Rectangle(object.pos.x, object.pos.y, object.width, object.height));
+					}
+				}
+
+				case "Fire": {
+					for(object in group.objects) {
+						spawnFire(object.pos, object.properties.get('direction') == null ? 90 : Std.parseFloat(object.properties.get('direction')));
 					}
 				}
 
@@ -150,7 +156,7 @@ class Play extends State {
 	function spawnFeatherRock(pos:Vector) {
 		var featherRockTexture:Texture = Luxe.resources.find_texture("assets/sprites/featherrock.png");
 		featherRockTexture.filter = FilterType.nearest;
-		featherrock = new Sprite({
+		var rock:Sprite = new Sprite({
 			name: 'FeatherRock',
 			pos: pos,
 			size: new Vector(16, 16),
@@ -158,22 +164,23 @@ class Play extends State {
 			scene: playScene
 		});
 
-		featherrock.add(new FeatherRockPhysics());
+		rock.add(new FeatherRockPhysics());
+		rock.add(new components.FeatherRockControls());
 
-		var anim:SpriteAnimation = featherrock.add(new SpriteAnimation({ name: 'SpriteAnimation' }));
+		var anim:SpriteAnimation = rock.add(new SpriteAnimation({ name: 'SpriteAnimation' }));
 		anim.add_from_json_object(Luxe.resources.find_json('assets/sprites/featherrock.json').json);
 		anim.animation = 'flying idle';
 		anim.play();
 
-		featherrock.add(new GroundDetector());
-		featherrock.add(new FeatherRockAnimator());
-		featherrock.add(new MouseBulletTime());
-		featherrock.add(new components.LazyCameraFollow());
-		featherrock.add(new components.ShakeCameraOnHit());
-		featherrock.add(new components.FeatherRockDiver());
-		featherrock.add(new components.FeatherRockDiveDrawer());
+		rock.add(new GroundDetector());
+		rock.add(new FeatherRockAnimator());
+		rock.add(new MouseBulletTime());
+		rock.add(new components.LazyCameraFollow());
+		rock.add(new components.ShakeCameraOnHit());
+		rock.add(new components.FeatherRockDiver());
+		rock.add(new components.FeatherRockDiveDrawer());
 
-		//Main.centerCameraAt(pos);
+		featherRock = rock;
 	}
 
 	function spawnBreakableBlock(pos:Vector) {
@@ -188,7 +195,7 @@ class Play extends State {
 			texture: blockTexture,
 			scene: playScene
 		});
-		block.add(new components.Destructible(featherrock));
+		block.add(new components.Destructible(featherRock));
 		block.add(new components.OneShotParticlesOnDestroy(new Color().rgb(0x5d3465)));
 	}
 
@@ -210,7 +217,7 @@ class Play extends State {
 		anim.animation = 'walk';
 		anim.play();
 
-		elf.add(new components.Destructible(featherrock, BodyType.DYNAMIC));
+		elf.add(new components.Destructible(featherRock, BodyType.DYNAMIC));
 		elf.add(new components.OneShotParticlesOnDestroy(new Color().rgb(0xcf0000)));
 		elf.add(new components.WalkBackAndForth(32));
 		elf.add(new components.GiveMagicOnDestroy(50, hudBatcher));
@@ -234,7 +241,7 @@ class Play extends State {
 		anim.animation = 'walk';
 		anim.play();
 
-		goblin.add(new components.Destructible(featherrock, BodyType.DYNAMIC));
+		goblin.add(new components.Destructible(featherRock, BodyType.DYNAMIC));
 		goblin.add(new components.OneShotParticlesOnDestroy(new Color().rgb(0xcf0000)));
 		goblin.add(new components.WalkBackAndForth(32));
 	}
@@ -246,5 +253,110 @@ class Play extends State {
 			scene: playScene
 		});
 		exit.add(new components.NextLevelOnPlayerTouch(rect));
+	}
+
+	function spawnFire(pos:Vector, direction:Float) {
+		var particles:ParticleSystem = new ParticleSystem({
+			name: 'Fire',
+			name_unique: true,
+			scene: playScene
+		});
+		particles.pos = pos.clone();
+		particles.add_emitter({
+			name: 'flames',
+			emit_time: 0.05,
+			emit_count: 1,
+			direction: direction,
+			direction_random: 0,
+			speed: 3,
+			speed_random: 0,
+			end_speed: 0,
+			life: 0.2,
+			life_random: 0,
+			rotation: 0,
+			rotation_random: 0,
+			end_rotation: 0,
+			end_rotation_random: 0,
+			rotation_offset: 0,
+			pos_offset: new Vector(),
+			pos_random: new Vector(2, 2),
+			gravity: new Vector(),
+			start_size: new Vector(8, 8),
+			start_size_random: new Vector(),
+			end_size: new Vector(4, 4),
+			end_size_random: new Vector(),
+			start_color: new Color(1, 1, 0, 1),
+			end_color: new Color(1, 0, 0, 0),
+			group: 5,
+			depth: 90
+		});
+		var rect:Rectangle = new Rectangle();
+		switch(direction) {
+			case 0: {
+				rect.x = pos.x - 16;
+				rect.y = pos.y - 8;
+				rect.w = 20;
+				rect.h = 16;
+			}
+
+			case 180: {
+				rect.x = pos.x - 4;
+				rect.y = pos.y - 8;
+				rect.w = 20;
+				rect.h = 16;
+			}
+
+			case 270: {
+				rect.x = pos.x - 8;
+				rect.y = pos.y - 4;
+				rect.w = 16;
+				rect.h = 20;
+			}
+
+			default: {
+				rect.x = pos.x - 8;
+				rect.y = pos.y - 16;
+				rect.w = 16;
+				rect.h = 20;
+			}
+		}
+		particles.add(new components.Fire(rect, function() {
+			if(featherRockIsBurning) return;
+			featherRockIsBurning = true;
+
+			// go back to the spawn point
+			featherRock.visible = false;
+			featherRock.remove('LazyCameraFollow');
+
+			// create a new burnt featherrock
+			var featherRockTexture:Texture = Luxe.resources.find_texture("assets/sprites/featherrock.png");
+			featherRockTexture.filter = FilterType.nearest;
+			var rock:Sprite = new Sprite({
+				name: 'deadrock',
+				name_unique: true,
+				pos: featherRock.pos.clone(),
+				size: new Vector(16, 16),
+				texture: featherRockTexture,
+				scene: playScene
+			});
+
+			rock.add(new FeatherRockPhysics(PhysicsTypes.deadrock));
+			rock.add(new components.LazyCameraFollow());
+
+			var anim:SpriteAnimation = rock.add(new SpriteAnimation({ name: 'SpriteAnimation' }));
+			anim.add_from_json_object(Luxe.resources.find_json('assets/sprites/featherrock.json').json);
+			anim.animation = 'burnt';
+			anim.play();
+			
+			Luxe.timer.schedule(1, function() {
+				cast(featherRock.get('FeatherRockPhysics'), FeatherRockPhysics).body.position.setxy(spawnPoint.x, spawnPoint.y);
+				cast(featherRock.get('FeatherRockPhysics'), FeatherRockPhysics).body.velocity.setxy(0, 0);
+				featherRock.visible = true;
+				Luxe.physics.nape.space.bodies.add(cast(featherRock.get('FeatherRockPhysics'), FeatherRockPhysics).body);
+				rock.remove('LazyCameraFollow');
+				featherRock.add(new components.LazyCameraFollow());
+				featherRockIsBurning = false;
+			}, false);
+		}));
 	}
 }

@@ -29,4 +29,9 @@ class FeatherRockAnimator extends Component {
 		animator.animation = "flying idle";
 		animator.play();
 	}
+
+	override function ondestroy() {
+		groundDetector.removeLandedListener(onLanded);
+		groundDetector.removeLeaptListener(onLeapt);
+	}
 }

@@ -75,6 +75,14 @@ class GroundDetector extends Component {
 		onLeaptListeners.push(listener);
 	}
 
+	public function removeLandedListener(listener:Void->Void) {
+		onLandedListeners.remove(listener);
+	}
+
+	public function removeLeaptListener(listener:Void->Void) {
+		onLeaptListeners.remove(listener);
+	}
+
 	override function ondestroy() {
 		Luxe.physics.nape.space.listeners.remove(startListener);
 		Luxe.physics.nape.space.listeners.remove(endListener);

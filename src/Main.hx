@@ -48,7 +48,7 @@ class Main extends luxe.Game {
 		magic: 100
 	};
 	public static var gameData:GameData = {
-		currentLevel: 0
+		currentLevel: 3
 	}
 
 	var effects:Effects = new Effects();
@@ -90,9 +90,17 @@ class Main extends luxe.Game {
         	t.filter = FilterType.nearest;
         }
 
+        Luxe.renderer.batcher.add_group(5,
+            function(b:phoenix.Batcher) {
+                Luxe.renderer.blend_mode(BlendMode.src_alpha, BlendMode.one);
+            },
+            function(b:phoenix.Batcher) {
+                Luxe.renderer.blend_mode();
+            }
+        );
+
 		// physics drawing
-		//drawer = new DebugDraw();
-		//Luxe.physics.nape.debugdraw = drawer;
+		drawer = new DebugDraw(); Luxe.physics.nape.debugdraw = drawer;
 
 		// load the effects
 		effects.onload();
@@ -105,7 +113,7 @@ class Main extends luxe.Game {
 		fsm.add(new Menu());
 		fsm.add(new Play());
 
-		fsm.set('Menu');
+		fsm.set('Play');
 		Actuate.tween(transitionEffect, 2, { transition: 1 });
 
 	} // assetsLoaded

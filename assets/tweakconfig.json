@@ -1,5 +1,6 @@
 {
 	"flapStrength": 10,
 	"moveSpeed": 100,
-	"blockBreakVelocity": 750
+	"blockBreakVelocity": 750,
+	"screenShakeAmount": 8
 }

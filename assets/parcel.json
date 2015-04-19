@@ -23,7 +23,8 @@
         { "id" : "assets/maps/dev.tmx" },
         { "id" : "assets/maps/level0.tmx" },
         { "id" : "assets/maps/level1.tmx" },
-        { "id" : "assets/maps/level2.tmx" }
+        { "id" : "assets/maps/level2.tmx" },
+        { "id" : "assets/maps/level3.tmx" }
     ],
     "json" : [
         { "id" : "assets/tweakconfig.json" },

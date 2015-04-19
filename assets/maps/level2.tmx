@@ -3,7 +3,7 @@
  <tileset firstgid="1" name="tileset" tilewidth="16" tileheight="16">
   <image source="tileset.png" width="256" height="256"/>
  </tileset>
- <layer name="Background" width="16" height="16" visible="0">
+ <layer name="Background" width="16" height="16">
   <data>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -806,7 +806,7 @@
   <object x="256" y="0" width="16" height="64"/>
   <object x="160" y="192" width="16" height="32"/>
  </objectgroup>
- <objectgroup color="#ffff00" name="Spawns">
+ <objectgroup color="#ffff00" name="FeatherRock">
   <object name="FeatherRock" x="16" y="16" width="16" height="16">
    <ellipse/>
   </object>

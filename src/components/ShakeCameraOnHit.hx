@@ -25,7 +25,7 @@ class ShakeCameraOnHit extends Component {
 	}
 
 	function onHit(cb:InteractionCallback) {
-		if(lastVelocity >= TweakConfig.screenShakeVelocity) Luxe.camera.shake(4);
+		if(lastVelocity >= TweakConfig.screenShakeVelocity) Luxe.camera.shake(TweakConfig.screenShakeAmount);
 	}
 
 	override function update(dt:Float) {

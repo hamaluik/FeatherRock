@@ -6,7 +6,9 @@ class TweakConfig {
 	public static var cameraFollowRatio(default, null):Float = 0.1;
 	public static var blockBreakVelocity(default, null):Float = 1000;
 	public static var screenShakeVelocity(default, null):Float = 1000;
+	public static var screenShakeAmount(default, null):Float = 4;
 	public static var bloomTheshold(default, null):Float = 0.75;
+	public static var rockElasticity(default, null):Float = 0.2;
 
 	public static function load(json) {
 		if(json.flapStrength != null) flapStrength = json.flapStrength;
@@ -16,6 +18,8 @@ class TweakConfig {
 		if(json.cameraFollowRatio != null) cameraFollowRatio = json.cameraFollowRatio;
 		if(json.blockBreakVelocity != null) blockBreakVelocity = json.blockBreakVelocity;
 		if(json.screenShakeVelocity != null) screenShakeVelocity = json.screenShakeVelocity;
+		if(json.screenShakeAmount != null) screenShakeAmount = json.screenShakeAmount;
 		if(json.bloomTheshold != null) bloomTheshold = json.bloomTheshold;
+		if(json.rockElasticity != null) rockElasticity = json.rockElasticity;
 	}
 }

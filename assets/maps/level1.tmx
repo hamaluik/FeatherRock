@@ -806,7 +806,7 @@
   <object x="256" y="0" width="16" height="64"/>
   <object x="160" y="192" width="16" height="32"/>
  </objectgroup>
- <objectgroup color="#ffff00" name="Spawns">
+ <objectgroup color="#ffff00" name="FeatherRock">
   <object name="FeatherRock" x="16" y="16" width="16" height="16">
    <ellipse/>
   </object>
