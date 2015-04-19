@@ -23,7 +23,14 @@
         { "id" : "assets/music/theme.ogg", "name" : "theme", "is_stream" : false},
         { "id" : "assets/music/theme_reverb.ogg", "name" : "theme_reverb", "is_stream" : false},
         { "id" : "assets/sounds/coins.ogg", "name" : "coins", "is_stream" : false},
-        { "id" : "assets/sounds/blockbreak.ogg", "name" : "blockbreak", "is_stream" : false}
+        { "id" : "assets/sounds/blockbreak.ogg", "name" : "blockbreak", "is_stream" : false},
+        { "id" : "assets/sounds/flap.ogg", "name" : "flap", "is_stream" : false},
+        { "id" : "assets/sounds/soul.ogg", "name" : "soul", "is_stream" : false},
+        { "id" : "assets/sounds/bodywhack.ogg", "name" : "bodywhack", "is_stream" : false},
+        { "id" : "assets/sounds/groundhit.ogg", "name" : "groundhit", "is_stream" : false},
+        { "id" : "assets/sounds/burnt.ogg", "name" : "burnt", "is_stream" : false},
+        { "id" : "assets/sounds/wahwah.ogg", "name" : "wahwah", "is_stream" : false},
+        { "id" : "assets/sounds/tada.ogg", "name" : "tada", "is_stream" : false}
     ],
     "text" : [
         { "id" : "assets/maps/dev.tmx" },

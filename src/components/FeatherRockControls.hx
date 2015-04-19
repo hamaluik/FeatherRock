@@ -19,6 +19,7 @@ class FeatherRockControls extends Component {
 	override function update(dt:Float) {
 		if(Luxe.input.inputpressed('flap')) {
 			physics.body.applyImpulse(Vec2.weak(0, -TweakConfig.flapStrength));
+			Main.musicManager.play("flap");
 		}
 
 		var lrAxis:Float = 0;

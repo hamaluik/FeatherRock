@@ -49,7 +49,7 @@ class Main extends luxe.Game {
 		magic: 100
 	};
 	public static var gameData:GameData = {
-		currentLevel: 0
+		currentLevel: 1
 	}
 
 	public static var musicManager:MusicManager = new MusicManager();
@@ -116,7 +116,7 @@ class Main extends luxe.Game {
 		fsm.add(new Menu());
 		fsm.add(new Play());
 
-		fsm.set('Cinematic');
+		fsm.set('Play');
 
 	} // assetsLoaded
 

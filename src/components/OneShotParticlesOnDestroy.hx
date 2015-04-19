@@ -7,13 +7,23 @@ import luxe.Particles;
 
 class OneShotParticlesOnDestroy extends Component {
 	var particleColor:Color = new Color().rgb(0xffffff);
+	var destructible:Destructible;
 
 	public function new(?color:Color) {
 		super({ name: 'OneShotParticlesOnDestroy' });
 		if(color != null) particleColor = color;
 	}
 
+	override function init() {
+		destructible = cast entity.get('Destructible');
+		destructible.addOnDestructionListener(onDestroyed);
+	}
+
 	override function ondestroy() {
+		destructible.removeOnDestructionListener(ondestroy);
+	}
+
+	function onDestroyed() {
 		var particles:ParticleSystem = new ParticleSystem({ name: 'particles', name_unique: true });
 		particles.add_emitter({
 			name: 'derp',

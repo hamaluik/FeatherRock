@@ -26,6 +26,7 @@ class MusicManager {
 		if(sounds.get(name).playing) return;
 		Luxe.audio.loop(name);
 		sounds.get(name).playing = true;
+		Luxe.audio.volume(name, 0.05);
 	}
 
 	public function stop(name:String) {
@@ -35,6 +36,7 @@ class MusicManager {
 	}
 
 	public function play(name:String) {
+		trace("Playing sound: " + name);
 		Luxe.audio.play(name);
 	}
 }

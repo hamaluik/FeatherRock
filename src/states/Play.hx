@@ -194,6 +194,9 @@ class Play extends State {
 		rock.add(new components.FeatherRockDiveDrawer());
 		rock.add(new components.LoseMagicOverTime(TweakConfig.magicDrainSpeed, burnFeathers));
 
+		//rock.add(new components.PlaySoundOnHit("groundhit", [PhysicsTypes.ground]));
+		//rock.add(new components.PlaySoundOnHit("bodywhack", [PhysicsTypes.actor]));
+
 		featherRock = rock;
 	}
 
@@ -211,6 +214,7 @@ class Play extends State {
 		});
 		block.add(new components.Destructible(featherRock));
 		block.add(new components.OneShotParticlesOnDestroy(new Color().rgb(0x5d3465)));
+		block.add(new components.PlaySoundOnDestroyed("blockbreak"));
 	}
 
 	function spawnElf(pos:Vector) {
@@ -233,8 +237,9 @@ class Play extends State {
 
 		elf.add(new components.Destructible(featherRock, BodyType.DYNAMIC));
 		elf.add(new components.OneShotParticlesOnDestroy(new Color().rgb(0xcf0000)));
-		elf.add(new components.WalkBackAndForth(32));
-		elf.add(new components.GiveMagicOnDestroy(50, hudBatcher));
+		elf.add(new components.WalkBackAndForth(TweakConfig.elfWalkSpeed));
+		elf.add(new components.GiveMagicOnDestroy(TweakConfig.elfMagic, featherRock));
+		//elf.add(new components.PlaySoundOnDestroyed("soul"));
 	}
 
 	function spawnGoblin(pos:Vector) {
@@ -267,6 +272,7 @@ class Play extends State {
 			scene: playScene
 		});
 		exit.add(new components.Trigger(rect, function() {
+			Main.musicManager.play("tada");
 			Main.gameData.currentLevel++;
 			Main.transition('Play');
 		}));
@@ -370,6 +376,8 @@ class Play extends State {
 		if(featherRockIsBurning) return;
 		featherRockIsBurning = true;
 
+		Main.musicManager.play("burnt");
+
 		// go back to the spawn point
 		featherRock.visible = false;
 		featherRock.remove('LazyCameraFollow');
@@ -408,6 +416,7 @@ class Play extends State {
 			featherRock.add(new components.FeatherRockControls());
 			featherRockIsBurning = false;
 			Main.playerData.magic = TweakConfig.startMagic;
+			Main.musicManager.play("wahwah");
 		}, false);
 	}
 }

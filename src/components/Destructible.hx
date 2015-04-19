@@ -22,6 +22,8 @@ class Destructible extends Component {
 
 	var bodyType:BodyType = BodyType.STATIC;
 
+	var onDestructionListeners:Array<Void->Void> = new Array<Void->Void>();
+
 	public function new(featherRock:Entity, ?bodyType:BodyType) {
 		super({ name: 'Destructible' });
 		this.featherRock = featherRock;
@@ -49,10 +51,21 @@ class Destructible extends Component {
 			//entity.destroy();
 			Luxe.timescale = 0.001;
 			Luxe.timer.schedule(TweakConfig.destructionFreezeTime, function() {
+				for(listener in onDestructionListeners) {
+					listener();
+				}
 				entity.destroy();
 				Luxe.timescale = 1;
 			}, false);
 		}
+	}
+
+	public function addOnDestructionListener(listener:Void->Void) {
+		onDestructionListeners.push(listener);
+	}
+
+	public function removeOnDestructionListener(listener:Void->Void) {
+		onDestructionListeners.remove(listener);
 	}
 
 	override function update(dt:Float) {
