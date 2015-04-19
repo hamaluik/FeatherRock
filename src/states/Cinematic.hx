@@ -39,7 +39,7 @@ class Cinematic extends State {
 		Luxe.camera.zoom = 1;
 		Luxe.renderer.clear_color = new Color().rgb(0x0b1827);
 
-		Main.musicManager.play("theme");
+		Main.musicManager.loop("theme");
 
 		picture = new Sprite({
 			name: 'cinematic.image',

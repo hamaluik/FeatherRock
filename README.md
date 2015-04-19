@@ -2,29 +2,13 @@
 
 ## Story
 
-Ages ago, under a long-forgotten mountain, there lived an ancient race of Dwarves whose name has been lost to time.
+Ages and ages ago, under a long-forgotten mountain there lived an ancient race of Dwarves who were forever at war with the surrounding goblin tribes.
 
-These ancient creatures plundered the earth to become wealthy and powerful beyond all measure.
+Each year, the dwarves held a competition to showcase their finest battlefield inventions.
 
-With their accrued power, the dwarves founded a lineage of magical shamans lasting a thousand generations, each more powerful than the last.
+The inventors of the mightiest and terriblest of weapons to use against the goblins were richly rewarded with gold, gems, and titles.
 
-The shamans wielded their terrifying magical constructs on the battlefield to wreak destruction on their enemies, ensuring the dwarves' legacy.
-
-That is, until Todd.
-
-*clang* *clang* *clang*
-
-FEATHER
-
-*clang* *clang* *clang*
-
-ROCK
-
-*clang* *clang* *clang*
-
-FEATHERROCK!
-
-This is that story.
+Their names would live on forever.
 
 ## Mechanics
 
@@ -45,7 +29,7 @@ This is that story.
 ### Programming
 
 - [x] Mechanics
-- [ ] Cinematics
+- [x] Cinematics
 - [ ] High scores?
 
 ### Art
@@ -73,7 +57,7 @@ This is that story.
 ### Sound
 
 - [ ] Various thwumps
-- [ ] Theme music
+- [x] Theme music
 - [ ] Mood music
 
 ### Levels

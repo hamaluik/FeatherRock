@@ -116,7 +116,7 @@ class Main extends luxe.Game {
 		fsm.add(new Menu());
 		fsm.add(new Play());
 
-		fsm.set('Menu');
+		fsm.set('Cinematic');
 
 	} // assetsLoaded
 

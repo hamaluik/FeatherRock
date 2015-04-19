@@ -24,7 +24,7 @@ class Menu extends State {
 		Luxe.camera.zoom = 1;
 		Luxe.renderer.clear_color = new Color().rgb(0x0b1827);
 
-		Main.musicManager.play("theme");
+		Main.musicManager.loop("theme");
 
 		var title:Text = new Text({
 			pos: Luxe.screen.mid.clone().add_xyz(0, -48),
