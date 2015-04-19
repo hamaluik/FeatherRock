@@ -48,7 +48,7 @@ class Main extends luxe.Game {
 		magic: 100
 	};
 	public static var gameData:GameData = {
-		currentLevel: 3
+		currentLevel: 0
 	}
 
 	var effects:Effects = new Effects();
@@ -100,7 +100,7 @@ class Main extends luxe.Game {
         );
 
 		// physics drawing
-		drawer = new DebugDraw(); Luxe.physics.nape.debugdraw = drawer;
+		//drawer = new DebugDraw(); Luxe.physics.nape.debugdraw = drawer;
 
 		// load the effects
 		effects.onload();

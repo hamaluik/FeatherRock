@@ -9,6 +9,7 @@ class LoseMagicOverTime extends Component {
 	public function new(drainSpeed:Float, onDrained:Void->Void) {
 		super({ name: 'LoseMagicOverTime' });
 		this.drainSpeed = drainSpeed;
+		this.onDrained = onDrained;
 	}
 
 	override function update(dt:Float) {

@@ -5,6 +5,7 @@ import components.FeatherRockPhysics;
 import components.GroundDetector;
 import components.MouseBulletTime;
 import luxe.Particles;
+import motion.Actuate;
 import phoenix.Camera;
 import luxe.Color;
 import luxe.components.sprite.SpriteAnimation;
@@ -27,6 +28,7 @@ import phoenix.Texture;
 import luxe.Parcel;
 import luxe.Rectangle;
 import luxe.States;
+import luxe.Text;
 
 class Play extends State {
 	var tilemap:TiledMap;
@@ -114,6 +116,12 @@ class Play extends State {
 				case "Fire": {
 					for(object in group.objects) {
 						spawnFire(object.pos, object.properties.get('direction') == null ? 90 : Std.parseFloat(object.properties.get('direction')));
+					}
+				}
+
+				case "Checkpoints": {
+					for(object in group.objects) {
+						spawnCheckpoint(new Rectangle(object.pos.x, object.pos.y, object.width, object.height));
 					}
 				}
 
@@ -254,7 +262,36 @@ class Play extends State {
 			name_unique: true,
 			scene: playScene
 		});
-		exit.add(new components.NextLevelOnPlayerTouch(rect));
+		exit.add(new components.Trigger(rect, function() {
+			Main.gameData.currentLevel++;
+			Main.transition('Play');
+		}));
+	}
+
+	function spawnCheckpoint(rect:luxe.Rectangle) {
+		var checkpoint = new Entity({
+			name: 'Checkpoint',
+			name_unique: true,
+			scene: playScene
+		});
+		checkpoint.add(new components.Trigger(rect, function() {
+			spawnPoint.set_xy(rect.x + rect.w / 2, rect.y + rect.h / 2);
+
+			var checkpointText:Text = new Text({
+				depth: 120,
+				text: "Checkpoint!",
+				color: new Color(1, 1, 1, 1),
+				font: Main.uiFont,
+				pos: spawnPoint.clone(),
+				align: TextAlign.center,
+				point_size: 8,
+				align_vertical: TextAlign.center
+			});
+
+			Actuate.tween(checkpointText.color, 3, { a: 0 }).onComplete(function() {
+				checkpointText.destroy();
+			});
+		}));
 	}
 
 	function spawnFire(pos:Vector, direction:Float) {
@@ -322,7 +359,7 @@ class Play extends State {
 				rect.h = 20;
 			}
 		}
-		particles.add(new components.Fire(rect, burnFeathers));
+		particles.add(new components.Trigger(rect, burnFeathers));
 	}
 
 	function burnFeathers() {
@@ -333,6 +370,7 @@ class Play extends State {
 		featherRock.visible = false;
 		featherRock.remove('LazyCameraFollow');
 		featherRock.remove('LoseMagicOverTime');
+		featherRock.remove('FeatherRockControls');
 
 		// create a new burnt featherrock
 		var featherRockTexture:Texture = Luxe.resources.find_texture("assets/sprites/featherrock.png");
@@ -362,6 +400,7 @@ class Play extends State {
 			rock.remove('LazyCameraFollow');
 			featherRock.add(new components.LazyCameraFollow());
 			featherRock.add(new components.LoseMagicOverTime(TweakConfig.magicDrainSpeed, burnFeathers));
+			featherRock.add(new components.FeatherRockControls());
 			featherRockIsBurning = false;
 			Main.playerData.magic = TweakConfig.startMagic;
 		}, false);

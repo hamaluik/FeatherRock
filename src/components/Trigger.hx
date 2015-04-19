@@ -11,21 +11,22 @@ import nape.callbacks.InteractionType;
 import nape.callbacks.OptionType;
 import nape.phys.BodyType;
 
-class NextLevelOnPlayerTouch extends Component {
+class Trigger extends Component {
 	var rect:Rectangle;
 	var body:Body;
 	var hitListener:InteractionListener;
+	var onTouched:Void->Void;
 
-	public function new(rect:Rectangle) {
-		super({ name: 'NextLevelOnPlayerTouch' });
+	public function new(rect:Rectangle, onTouched:Void->Void) {
+		super({ name: 'Trigger' });
 		this.rect = rect;
+		this.onTouched = onTouched;
 	}
 
 	override function init() {
 		body = new Body(BodyType.STATIC);
 		var shape:Polygon = new Polygon(Polygon.box(rect.w, rect.h));
 		shape.sensorEnabled = true;
-		//shape.filter.col
 
 		body.shapes.add(shape);
 		body.position.setxy(rect.x + rect.w / 2, rect.y + rect.h / 2);
@@ -40,8 +41,7 @@ class NextLevelOnPlayerTouch extends Component {
 
 	function onFeatherRockTouch(cb:InteractionCallback) {
 		if(cb.int1.castBody.id == body.id) {
-			Main.gameData.currentLevel++;
-			Main.transition('Play');
+			onTouched();
 		}
 	}
 

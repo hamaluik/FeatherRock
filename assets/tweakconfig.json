@@ -2,5 +2,6 @@
 	"flapStrength": 10,
 	"moveSpeed": 100,
 	"blockBreakVelocity": 750,
-	"screenShakeAmount": 8
+	"screenShakeAmount": 8,
+	"startMagic": 10
 }

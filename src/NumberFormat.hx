@@ -17,7 +17,7 @@ class NumberFormat {
 			}
 			else
 			{
-				s += ".";
+				if(decimalPlaces > 0) s += ".";
 				for (i in 0...decimalPlaces)
 					s += "0";
 			}

@@ -37,7 +37,7 @@ This is that story.
 - [x] Magical energy runs out over time
     + [x] Collect energy from elvish souls scattered about
 - [x] Avoid fire, it will burn your feathers
-- [ ] Checkpoints
+- [x] Checkpoints
 
 ## Todo
 
