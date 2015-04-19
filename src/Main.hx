@@ -53,7 +53,7 @@ class Main extends luxe.Game {
 		gold: 0
 	};
 	public static var gameData:GameData = {
-		currentLevel: 3
+		currentLevel: 7
 	}
 
 	public static var musicManager:MusicManager = new MusicManager();
