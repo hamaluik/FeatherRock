@@ -52,6 +52,8 @@ class Main extends luxe.Game {
 		currentLevel: 0
 	}
 
+	public static var musicManager:MusicManager = new MusicManager();
+
 	var effects:Effects = new Effects();
 	static var transitionEffect:CircleTransitionEffect = new CircleTransitionEffect();
 
@@ -97,6 +99,8 @@ class Main extends luxe.Game {
             }
         );
 
+        musicManager.onload();
+
 		// physics drawing
 		//drawer = new DebugDraw(); Luxe.physics.nape.debugdraw = drawer;
 
@@ -112,7 +116,7 @@ class Main extends luxe.Game {
 		fsm.add(new Menu());
 		fsm.add(new Play());
 
-		fsm.set('Play');
+		fsm.set('Menu');
 
 	} // assetsLoaded
 

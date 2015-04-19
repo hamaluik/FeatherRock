@@ -12,6 +12,7 @@ class DigitalCircleParcelProgress {
 	var parcel:Parcel;
 
 	var ticks:Array<Visual> = new Array<Visual>();
+	var loadingText:Text;
 	var progressText:Text;
 
 	var options:ParcelProgressOptions;
@@ -54,6 +55,15 @@ class DigitalCircleParcelProgress {
     		color: new Color().rgb(0xFF6B6B)
     	});
 
+    	loadingText = new luxe.Text({
+    		text: 'Loading...',
+    		align: center,
+    		align_vertical: TextAlign.top,
+    		point_size: 12,
+    		pos: new Vector(Luxe.screen.mid.x, Luxe.screen.mid.y + 45),
+    		color: new Color().rgb(0xFF6B6B)
+    	});
+
 		// intercept the oncomplete and onprogress callbacks
 		options.parcel.options.oncomplete = oncomplete;
 		options.parcel.options.onprogress = onprogress;
@@ -75,6 +85,7 @@ class DigitalCircleParcelProgress {
 			tick.destroy();
 		}
 		progressText.destroy();
+		loadingText.destroy();
 
 		if(options.oncomplete != null) {
 			options.oncomplete(options.parcel);

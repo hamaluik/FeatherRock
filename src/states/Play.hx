@@ -49,7 +49,10 @@ class Play extends State {
 
 	override function onenter<T>(_:T) {
 		Luxe.camera.zoom = 2;
-		Luxe.renderer.clear_color = new Color().rgb(0x719ecf);
+		//Luxe.renderer.clear_color = new Color().rgb(0x719ecf);
+		Luxe.renderer.clear_color = new Color().rgb(0x0b1827);
+
+		Main.musicManager.play("theme");
 
 		var level:String = "assets/maps/level" + Main.gameData.currentLevel + ".tmx";
 		trace("Loading level: " + level);

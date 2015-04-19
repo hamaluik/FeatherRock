@@ -4,6 +4,7 @@ import luxe.Color;
 import luxe.Rectangle;
 import luxe.Scene;
 import luxe.Sprite;
+import luxe.Visual;
 import luxe.States;
 import luxe.Input;
 import luxe.Text;
@@ -34,15 +35,18 @@ class Cinematic extends State {
 	}
 
 	override function onenter<T>(_:T) {
-		Luxe.camera.pos.set_xy(0, 0);
+		Luxe.camera.pos = new Vector(0, 0);
 		Luxe.camera.zoom = 1;
-		Luxe.renderer.clear_color = new Color(0, 0, 0, 1);
+		Luxe.renderer.clear_color = new Color().rgb(0x0b1827);
+
+		Main.musicManager.play("theme");
 
 		picture = new Sprite({
 			name: 'cinematic.image',
 			scene: cinematicScene,
-			pos: Luxe.screen.mid,
-			color: new Color(1, 1, 1, 1)
+			pos: Luxe.screen.mid.clone(),
+			color: new Color(1, 1, 1, 1),
+			size: new Vector(1024, 1024)
 		});
 
 		caption = new Text({
@@ -71,7 +75,6 @@ class Cinematic extends State {
 		cinematicImage = Luxe.resources.find_texture("assets/cinematic/" + slide.image);
 		cinematicImage.filter = FilterType.nearest;
 		picture.texture = cinematicImage;
-		picture.size.set_xy(cinematicImage.width_actual, cinematicImage.height_actual);
 		caption.text = slide.text;
 	}
 

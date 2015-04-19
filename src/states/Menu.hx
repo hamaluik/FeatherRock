@@ -5,6 +5,10 @@ import luxe.Scene;
 import luxe.States;
 import luxe.Input;
 import luxe.Text;
+import phoenix.Texture;
+import luxe.Sprite;
+import luxe.components.sprite.SpriteAnimation;
+import luxe.Vector;
 
 class Menu extends State {
 	var menuScene:Scene;
@@ -18,11 +22,38 @@ class Menu extends State {
 	override function onenter<T>(_:T) {
 		Luxe.camera.pos.set_xy(0, 0);
 		Luxe.camera.zoom = 1;
-		Luxe.renderer.clear_color = new Color(0, 0, 0, 1);
+		Luxe.renderer.clear_color = new Color().rgb(0x0b1827);
 
-		var text:Text = new Text({
-			pos: Luxe.screen.mid,
-			text: "Menu",
+		Main.musicManager.play("theme");
+
+		var title:Text = new Text({
+			pos: Luxe.screen.mid.clone().add_xyz(0, -48),
+			text: "FEATHERROCK",
+			align: TextAlign.center,
+			align_vertical: TextAlign.center,
+			color: new Color(1, 1, 1, 1),
+			scene: menuScene,
+			font: Main.uiFont,
+			point_size: 48
+		});
+
+		var featherRockTexture:Texture = Luxe.resources.find_texture("assets/sprites/featherrock.png");
+		featherRockTexture.filter = FilterType.nearest;
+		var rock:Sprite = new Sprite({
+			name: 'FeatherRock',
+			pos: Luxe.screen.mid.clone(),
+			size: new Vector(64, 64),
+			texture: featherRockTexture,
+			scene: menuScene
+		});
+		var anim:SpriteAnimation = rock.add(new SpriteAnimation({ name: 'SpriteAnimation' }));
+		anim.add_from_json_object(Luxe.resources.find_json('assets/sprites/featherrock.json').json);
+		anim.animation = 'flying idle';
+		anim.play();
+
+		var title:Text = new Text({
+			pos: Luxe.screen.mid.clone().add_xyz(0, 48),
+			text: "Click to play",
 			align: TextAlign.center,
 			align_vertical: TextAlign.center,
 			color: new Color(1, 1, 1, 1),
@@ -30,7 +61,6 @@ class Menu extends State {
 			font: Main.uiFont,
 			point_size: 16
 		});
-		
 
 		Luxe.camera.pos.set_xy(0, 0);
 	}
@@ -40,9 +70,7 @@ class Menu extends State {
 		trace("Left menu");
 	}
 
-	override function onkeyup(e:KeyEvent) {
-		if(e.keycode == Key.escape) {
-			Main.transition('Play');
-		}
+	override function onmouseup(e:MouseEvent) {
+		Main.transition('Play');
 	}
 }
