@@ -34,6 +34,8 @@ import effects.BloomEffect;
 
 typedef PlayerData = {
 	var magic:Float;
+	var goblins:Float;
+	var gold:Float;
 }
 
 typedef GameData = {
@@ -46,10 +48,12 @@ class Main extends luxe.Game {
 	public static var uiFont:phoenix.BitmapFont;
 
 	public static var playerData:PlayerData = {
-		magic: 100
+		magic: 100,
+		goblins: 0,
+		gold: 0
 	};
 	public static var gameData:GameData = {
-		currentLevel: 1
+		currentLevel: 0
 	}
 
 	public static var musicManager:MusicManager = new MusicManager();

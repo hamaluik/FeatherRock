@@ -5,6 +5,7 @@ import components.FeatherRockPhysics;
 import components.GroundDetector;
 import components.MouseBulletTime;
 import luxe.Particles;
+import luxe.Visual;
 import motion.Actuate;
 import phoenix.Camera;
 import luxe.Color;
@@ -30,6 +31,12 @@ import luxe.Rectangle;
 import luxe.States;
 import luxe.Text;
 
+enum CollectibleType {
+	magic;
+	goblins;
+	gold;
+}
+
 class Play extends State {
 	var tilemap:TiledMap;
 	var featherRock:Sprite;
@@ -51,6 +58,8 @@ class Play extends State {
 		Luxe.camera.zoom = 2;
 		//Luxe.renderer.clear_color = new Color().rgb(0x719ecf);
 		Luxe.renderer.clear_color = new Color().rgb(0x0b1827);
+
+		Main.musicManager.loop("theme");
 
 		var level:String = "assets/maps/level" + Main.gameData.currentLevel + ".tmx";
 		trace("Loading level: " + level);
@@ -154,7 +163,8 @@ class Play extends State {
 		hudBatcher.view = hudView;
 		hudBatcher.layer = 2;
 		Luxe.renderer.add_batch(hudBatcher);
-		var magicText = new luxe.Text({
+
+		/*var magicText = new luxe.Text({
 			text: "Magic",
 			pos: new Vector(4, 4),
 			point_size: 16,
@@ -162,7 +172,103 @@ class Play extends State {
 			batcher: hudBatcher,
 			scene: playScene
 		});
-		magicText.add(new components.MagicDisplay(magicText));
+		magicText.add(new components.MagicDisplay(magicText));*/
+
+		var uiTexture:Texture = Luxe.resources.find_texture("assets/sprites/indicator ui.png");
+		uiTexture.filter = FilterType.nearest;
+		var ui:Visual = new Visual({
+			pos: new Vector(0, 0),
+			size: new Vector(256, 256),
+			texture: uiTexture,
+			batcher: hudBatcher,
+			scene: playScene
+		});
+
+		var magicBarTexture:Texture = Luxe.resources.find_texture("assets/sprites/magicbar.png");
+		magicBarTexture.filter = FilterType.nearest;
+		var magicBar:Sprite = new Sprite({
+			pos: new Vector(58, 10),
+			size: new Vector(100, 8),
+			texture: magicBarTexture,
+			batcher: hudBatcher,
+			scene: playScene,
+			depth: 1,
+			centered: false
+		});
+		magicBar.add(new components.PlayerDataBarDisplay(CollectibleType.magic, magicBar));
+
+		var magicText = new luxe.Text({
+			text: "Magic",
+			pos: new Vector(180, 8),
+			point_size: 16,
+			font: Main.uiFont,
+			batcher: hudBatcher,
+			scene: playScene
+		});
+		magicText.add(new components.PlayerDataTextDisplay(CollectibleType.magic, magicText));
+
+		var goblinsBarTexture:Texture = Luxe.resources.find_texture("assets/sprites/goblinsbar.png");
+		goblinsBarTexture.filter = FilterType.nearest;
+		var goblinsBar:Sprite = new Sprite({
+			pos: new Vector(58, 24),
+			size: new Vector(100, 8),
+			texture: goblinsBarTexture,
+			batcher: hudBatcher,
+			scene: playScene,
+			depth: 1,
+			centered: false
+		});
+		goblinsBar.add(new components.PlayerDataBarDisplay(CollectibleType.goblins, goblinsBar));
+
+		var goblinsText = new luxe.Text({
+			text: "Goblins",
+			pos: new Vector(180, 22),
+			point_size: 16,
+			font: Main.uiFont,
+			batcher: hudBatcher,
+			scene: playScene
+		});
+		goblinsText.add(new components.PlayerDataTextDisplay(CollectibleType.goblins, goblinsText));
+
+		var goldBarTexture:Texture = Luxe.resources.find_texture("assets/sprites/goldbar.png");
+		goldBarTexture.filter = FilterType.nearest;
+		var goldBar:Sprite = new Sprite({
+			pos: new Vector(58, 38),
+			size: new Vector(100, 8),
+			texture: goldBarTexture,
+			batcher: hudBatcher,
+			scene: playScene,
+			depth: 1,
+			centered: false
+		});
+		goldBar.add(new components.PlayerDataBarDisplay(CollectibleType.gold, goldBar));
+
+		var goldText = new luxe.Text({
+			text: "gold",
+			pos: new Vector(180, 36),
+			point_size: 16,
+			font: Main.uiFont,
+			batcher: hudBatcher,
+			scene: playScene
+		});
+		goldText.add(new components.PlayerDataTextDisplay(CollectibleType.gold, goldText));
+
+		var featherRockTexture:Texture = Luxe.resources.find_texture("assets/sprites/featherrock.png");
+		featherRockTexture.filter = FilterType.nearest;
+		var rock:Sprite = new Sprite({
+			name: 'disp',
+			name_unique: true,
+			pos: new Vector(29, 27),
+			size: new Vector(32, 32),
+			texture: featherRockTexture,
+			batcher: hudBatcher,
+			scene: playScene,
+			depth: 2
+		});
+		var anim:SpriteAnimation = rock.add(new SpriteAnimation({ name: 'SpriteAnimation' }));
+		anim.add_from_json_object(Luxe.resources.find_json('assets/sprites/featherrock.json').json);
+		anim.animation = 'flying idle';
+		anim.play();
 	}
 
 	function spawnFeatherRock(pos:Vector) {
@@ -238,7 +344,7 @@ class Play extends State {
 		elf.add(new components.Destructible(featherRock, BodyType.DYNAMIC));
 		elf.add(new components.OneShotParticlesOnDestroy(new Color().rgb(0xcf0000)));
 		elf.add(new components.WalkBackAndForth(TweakConfig.elfWalkSpeed));
-		elf.add(new components.GiveMagicOnDestroy(TweakConfig.elfMagic, featherRock));
+		elf.add(new components.GiveOnDestroy(CollectibleType.magic, TweakConfig.elfMagic, featherRock));
 		//elf.add(new components.PlaySoundOnDestroyed("soul"));
 	}
 
@@ -262,7 +368,8 @@ class Play extends State {
 
 		goblin.add(new components.Destructible(featherRock, BodyType.DYNAMIC));
 		goblin.add(new components.OneShotParticlesOnDestroy(new Color().rgb(0xcf0000)));
-		goblin.add(new components.WalkBackAndForth(32));
+		goblin.add(new components.WalkBackAndForth(TweakConfig.goblinWalkSpeed));
+		goblin.add(new components.GiveOnDestroy(CollectibleType.goblins, 1, featherRock));
 	}
 
 	function spawnExit(rect:luxe.Rectangle) {

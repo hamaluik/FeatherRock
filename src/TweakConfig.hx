@@ -14,6 +14,10 @@ class TweakConfig {
 	public static var destructionFreezeTime(default, null):Float = 0.1;
 	public static var elfMagic(default, null):Float = 10;
 	public static var elfWalkSpeed(default, null):Float = 32;
+	public static var goblinWalkSpeed(default, null):Float = 32;
+	public static var maxMagicBarSize(default, null):Float = 30;
+	public static var maxGoblinBarSize(default, null):Float = 100;
+	public static var maxGoldBarSize(default, null):Float = 1000;
 
 	public static function load(json) {
 		if(json.flapStrength != null) flapStrength = json.flapStrength;
@@ -31,5 +35,8 @@ class TweakConfig {
 		if(json.destructionFreezeTime != null) destructionFreezeTime = json.destructionFreezeTime;
 		if(json.elfMagic != null) elfMagic = json.elfMagic;
 		if(json.elfWalkSpeed != null) elfWalkSpeed = json.elfWalkSpeed;
+		if(json.maxMagicBarSize != null) maxMagicBarSize = json.maxMagicBarSize;
+		if(json.maxGoblinBarSize != null) maxGoblinBarSize = json.maxGoblinBarSize;
+		if(json.maxGoldBarSize != null) maxGoldBarSize = json.maxGoldBarSize;
 	}
 }

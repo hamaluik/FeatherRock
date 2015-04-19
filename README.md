@@ -8,8 +8,6 @@ Each year, the dwarves held a competition to showcase their finest battlefield i
 
 The inventors of the mightiest and terriblest of weapons to use against the goblins were richly rewarded with gold, gems, and titles.
 
-Their names would live on forever.
-
 ## Mechanics
 
 - [x] Flap your feathers to fly and move
@@ -43,7 +41,7 @@ Their names would live on forever.
     + [x] Tileset
     + [x] Elf
     + [x] Goblin
-- [ ] UI
+- [x] UI
 - [ ] Intro cinematic
 - [x] Particle effects
 - [ ] Final Assets
@@ -56,9 +54,9 @@ Their names would live on forever.
 
 ### Sound
 
-- [ ] Various thwumps
+- [x] Various thwumps
 - [x] Theme music
-- [ ] Mood music
+- [ ] Mood music?
 
 ### Levels
 

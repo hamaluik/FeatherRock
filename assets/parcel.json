@@ -6,6 +6,10 @@
         { "id" : "assets/sprites/breakable_block.png" },
         { "id" : "assets/sprites/elf.png" },
         { "id" : "assets/sprites/goblin.png" },
+        { "id" : "assets/sprites/indicator ui.png" },
+        { "id" : "assets/sprites/magicbar.png" },
+        { "id" : "assets/sprites/goblinsbar.png" },
+        { "id" : "assets/sprites/goldbar.png" },
         { "id" : "assets/cinematic/mountain bg.png" },
         { "id" : "assets/cinematic/weapons.png" },
         { "id" : "assets/cinematic/coins and gems.png" }
