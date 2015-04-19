@@ -154,6 +154,7 @@ class Play extends State {
 	}
 
 	function spawnFeatherRock(pos:Vector) {
+		Main.playerData.magic = TweakConfig.startMagic;
 		var featherRockTexture:Texture = Luxe.resources.find_texture("assets/sprites/featherrock.png");
 		featherRockTexture.filter = FilterType.nearest;
 		var rock:Sprite = new Sprite({
@@ -179,6 +180,7 @@ class Play extends State {
 		rock.add(new components.ShakeCameraOnHit());
 		rock.add(new components.FeatherRockDiver());
 		rock.add(new components.FeatherRockDiveDrawer());
+		rock.add(new components.LoseMagicOverTime(TweakConfig.magicDrainSpeed, burnFeathers));
 
 		featherRock = rock;
 	}
@@ -320,43 +322,48 @@ class Play extends State {
 				rect.h = 20;
 			}
 		}
-		particles.add(new components.Fire(rect, function() {
-			if(featherRockIsBurning) return;
-			featherRockIsBurning = true;
+		particles.add(new components.Fire(rect, burnFeathers));
+	}
 
-			// go back to the spawn point
-			featherRock.visible = false;
-			featherRock.remove('LazyCameraFollow');
+	function burnFeathers() {
+		if(featherRockIsBurning) return;
+		featherRockIsBurning = true;
 
-			// create a new burnt featherrock
-			var featherRockTexture:Texture = Luxe.resources.find_texture("assets/sprites/featherrock.png");
-			featherRockTexture.filter = FilterType.nearest;
-			var rock:Sprite = new Sprite({
-				name: 'deadrock',
-				name_unique: true,
-				pos: featherRock.pos.clone(),
-				size: new Vector(16, 16),
-				texture: featherRockTexture,
-				scene: playScene
-			});
+		// go back to the spawn point
+		featherRock.visible = false;
+		featherRock.remove('LazyCameraFollow');
+		featherRock.remove('LoseMagicOverTime');
 
-			rock.add(new FeatherRockPhysics(PhysicsTypes.deadrock));
-			rock.add(new components.LazyCameraFollow());
+		// create a new burnt featherrock
+		var featherRockTexture:Texture = Luxe.resources.find_texture("assets/sprites/featherrock.png");
+		featherRockTexture.filter = FilterType.nearest;
+		var rock:Sprite = new Sprite({
+			name: 'deadrock',
+			name_unique: true,
+			pos: featherRock.pos.clone(),
+			size: new Vector(16, 16),
+			texture: featherRockTexture,
+			scene: playScene
+		});
 
-			var anim:SpriteAnimation = rock.add(new SpriteAnimation({ name: 'SpriteAnimation' }));
-			anim.add_from_json_object(Luxe.resources.find_json('assets/sprites/featherrock.json').json);
-			anim.animation = 'burnt';
-			anim.play();
-			
-			Luxe.timer.schedule(1, function() {
-				cast(featherRock.get('FeatherRockPhysics'), FeatherRockPhysics).body.position.setxy(spawnPoint.x, spawnPoint.y);
-				cast(featherRock.get('FeatherRockPhysics'), FeatherRockPhysics).body.velocity.setxy(0, 0);
-				featherRock.visible = true;
-				Luxe.physics.nape.space.bodies.add(cast(featherRock.get('FeatherRockPhysics'), FeatherRockPhysics).body);
-				rock.remove('LazyCameraFollow');
-				featherRock.add(new components.LazyCameraFollow());
-				featherRockIsBurning = false;
-			}, false);
-		}));
+		rock.add(new FeatherRockPhysics(PhysicsTypes.deadrock));
+		rock.add(new components.LazyCameraFollow());
+
+		var anim:SpriteAnimation = rock.add(new SpriteAnimation({ name: 'SpriteAnimation' }));
+		anim.add_from_json_object(Luxe.resources.find_json('assets/sprites/featherrock.json').json);
+		anim.animation = 'burnt';
+		anim.play();
+		
+		Luxe.timer.schedule(1, function() {
+			cast(featherRock.get('FeatherRockPhysics'), FeatherRockPhysics).body.position.setxy(spawnPoint.x, spawnPoint.y);
+			cast(featherRock.get('FeatherRockPhysics'), FeatherRockPhysics).body.velocity.setxy(0, 0);
+			featherRock.visible = true;
+			Luxe.physics.nape.space.bodies.add(cast(featherRock.get('FeatherRockPhysics'), FeatherRockPhysics).body);
+			rock.remove('LazyCameraFollow');
+			featherRock.add(new components.LazyCameraFollow());
+			featherRock.add(new components.LoseMagicOverTime(TweakConfig.magicDrainSpeed, burnFeathers));
+			featherRockIsBurning = false;
+			Main.playerData.magic = TweakConfig.startMagic;
+		}, false);
 	}
 }

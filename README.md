@@ -34,9 +34,10 @@ This is that story.
     + [x] Can't dive-bomb upwards
 - [x] Use dive-bombing to break breakable blocks
 - [x] Hit enemies with enough speed to kill them
-- [ ] Magical energy runs out over time
+- [x] Magical energy runs out over time
     + [x] Collect energy from elvish souls scattered about
 - [x] Avoid fire, it will burn your feathers
+- [ ] Checkpoints
 
 ## Todo
 
@@ -48,12 +49,12 @@ This is that story.
 
 ### Art
 
-- [ ] Prototyping assets
+- [x] Prototyping assets
     + FeatherRock
         * [x] Flying
         * [x] Diving
         * [x] On ground
-        * [ ] Getting burnt
+        * [x] Getting burnt
     + [x] Tileset
     + [x] Elf
     + [x] Goblin

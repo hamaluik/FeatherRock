@@ -3,6 +3,8 @@ package components;
 import luxe.Component;
 import luxe.Text;
 
+using NumberFormat;
+
 class MagicDisplay extends Component {
 	var text:Text;
 
@@ -12,6 +14,6 @@ class MagicDisplay extends Component {
 	}
 
 	override function update(dt:Float) {
-		text.text = "Magic: " + Main.playerData.magic;
+		text.text = "Magic: " + Main.playerData.magic.toFixed(0);
 	}
 } 

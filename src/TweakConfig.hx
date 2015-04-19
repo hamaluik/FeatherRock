@@ -9,6 +9,8 @@ class TweakConfig {
 	public static var screenShakeAmount(default, null):Float = 4;
 	public static var bloomTheshold(default, null):Float = 0.75;
 	public static var rockElasticity(default, null):Float = 0.2;
+	public static var startMagic(default, null):Float = 100;
+	public static var magicDrainSpeed(default, null):Float = 1;
 
 	public static function load(json) {
 		if(json.flapStrength != null) flapStrength = json.flapStrength;
@@ -21,5 +23,7 @@ class TweakConfig {
 		if(json.screenShakeAmount != null) screenShakeAmount = json.screenShakeAmount;
 		if(json.bloomTheshold != null) bloomTheshold = json.bloomTheshold;
 		if(json.rockElasticity != null) rockElasticity = json.rockElasticity;
+		if(json.startMagic != null) startMagic = json.startMagic;
+		if(json.magicDrainSpeed != null) magicDrainSpeed = json.magicDrainSpeed;
 	}
 }
