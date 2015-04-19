@@ -24,9 +24,5 @@ class PlayerDataBarDisplay extends Component {
 			case CollectibleType.goblins: visual.size.x = Maths.clamp(Main.playerData.goblins / TweakConfig.maxGoblinBarSize, 0, 1) * 100;
 			case CollectibleType.gold: visual.size.x = Maths.clamp(Main.playerData.gold / TweakConfig.maxGoldBarSize, 0, 1) * 100;
 		}
-
-		if(type == CollectibleType.magic) {
-			trace(Main.playerData.magic + " / " + TweakConfig.maxMagicBarSize + " => " + (Main.playerData.magic / TweakConfig.maxMagicBarSize) + " => " + visual.size.x);
-		}
 	}
 } 

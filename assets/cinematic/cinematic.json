@@ -1,16 +1,48 @@
 {
 	"slides": [
 		{
-			"text": "Ages and ages ago, under a long-forgotten mountain there lived an ancient race of Dwarves who were forever at war with the surrounding goblin tribes.",
+			"text": "In a land far far away, under a long-forgotten mountain there lives an ancient race of Dwarves who are forever at war with the surrounding goblin tribes.",
 			"image": "mountain bg.png"
 		},
 		{
-			"text": "Each year, the dwarves held a competition to showcase their finest battlefield inventions.",
+			"text": "Each year, the dwarves hold a competition to showcase their finest battlefield inventions.",
 			"image": "weapons.png"
 		},
 		{
-			"text": "The inventors of the mightiest and terriblest of weapons to use against the goblins were richly rewarded with gold, gems, and titles.",
+			"text": "The inventors of the mightiest and terriblest of weapons which could be used against the goblins are richly rewarded with gold, gems, and titles.",
 			"image": "coins and gems.png"
+		},
+		{
+			"text": "Yorri Cragglestone had never been a master weaponsmith - no trophies lined his quarters.",
+			"image": "fireside.png"
+		},
+		{
+			"text": "But this would be his year!",
+			"image": "fireside.png"
+		},
+		{
+			"text": "*clang* *clang* *clang*",
+			"image": "blank.png"
+		},
+		{
+			"text": "",
+			"image": "feather.png"
+		},
+		{
+			"text": "*clang* *clang* *clang*",
+			"image": "blank.png"
+		},
+		{
+			"text": "",
+			"image": "rock.png"
+		},
+		{
+			"text": "*clang* *clang* *clang*",
+			"image": "blank.png"
+		},
+		{
+			"text": "And so, the legendary FEATHERROCK was born!",
+			"image": "featherrock.png"
 		}
 	]
 }

@@ -42,6 +42,7 @@ class Play extends State {
 	var featherRock:Sprite;
 	var terrain:Array<Body> = new Array<Body>();
 	var hudBatcher:Batcher;
+	var bgBatcher:Batcher;
 
 	var playScene:Scene;
 
@@ -54,8 +55,10 @@ class Play extends State {
 		playScene = new Scene('play');
 	}
 
+	var checkpointMagic:Float = 0;
+
 	override function onenter<T>(_:T) {
-		Luxe.camera.zoom = 2;
+		Luxe.camera.zoom = 3;
 		//Luxe.renderer.clear_color = new Color().rgb(0x719ecf);
 		Luxe.renderer.clear_color = new Color().rgb(0x0b1827);
 
@@ -63,6 +66,8 @@ class Play extends State {
 
 		var level:String = "assets/maps/level" + Main.gameData.currentLevel + ".tmx";
 		trace("Loading level: " + level);
+
+		createBG();
 
 		tilemap = new TiledMap({
 			tiled_file_data: Luxe.resources.find_text(level).text,
@@ -72,6 +77,8 @@ class Play extends State {
 		tilemap.display({ filter: FilterType.nearest });
 
 		Luxe.camera.pos.set_xy(0, 0);
+
+		checkpointMagic = TweakConfig.startMagic;
 
 		// load all the objects
 		for(group in tilemap.tiledmap_data.object_groups) {
@@ -154,6 +161,26 @@ class Play extends State {
 		playScene.empty();
 		tilemap.visual.destroy();
 		trace("Left play");
+	}
+
+	function createBG() {
+		bgBatcher = new Batcher(Luxe.renderer, "bg batcher");
+		var bgView:Camera = new Camera();
+		bgBatcher.view = bgView;
+		bgBatcher.layer = -1;
+		Luxe.renderer.add_batch(bgBatcher);
+
+		var bgTexture:Texture = Luxe.resources.find_texture("assets/cinematic/mountain bg.png");
+		bgTexture.filter = FilterType.nearest;
+		var bg:Sprite = new Sprite({
+			texture: bgTexture,
+			name: 'bg',
+			name_unique: true,
+			pos: Luxe.screen.mid.clone(),
+			size: new Vector(1024, 1024),
+			batcher: bgBatcher,
+			scene: playScene
+		});
 	}
 
 	function createUI() {
@@ -272,7 +299,7 @@ class Play extends State {
 	}
 
 	function spawnFeatherRock(pos:Vector) {
-		Main.playerData.magic = TweakConfig.startMagic;
+		Main.playerData.magic = checkpointMagic;
 		var featherRockTexture:Texture = Luxe.resources.find_texture("assets/sprites/featherrock.png");
 		featherRockTexture.filter = FilterType.nearest;
 		var rock:Sprite = new Sprite({
@@ -319,7 +346,7 @@ class Play extends State {
 			scene: playScene
 		});
 		block.add(new components.Destructible(featherRock));
-		block.add(new components.OneShotParticlesOnDestroy(new Color().rgb(0x5d3465)));
+		block.add(new components.OneShotParticlesOnDestroy(new Color().rgb(0x8a5828)));
 		block.add(new components.PlaySoundOnDestroyed("blockbreak"));
 	}
 
@@ -446,6 +473,19 @@ class Play extends State {
 			group: 5,
 			depth: 90
 		});
+
+		var haloTexture:Texture = Luxe.resources.find_texture("assets/sprites/light.png");
+		haloTexture.filter = FilterType.nearest;
+		var halo:Sprite = new Sprite({
+			name: 'halo',
+			name_unique: true,
+			pos: pos,
+			size: new Vector(32, 32),
+			texture: haloTexture,
+			color: new Color(1, 1, 1, 0.2),
+			scene: playScene,
+			depth: 500
+		});
 		var rect:Rectangle = new Rectangle();
 		switch(direction) {
 			case 0: {
@@ -524,6 +564,7 @@ class Play extends State {
 			featherRockIsBurning = false;
 			Main.playerData.magic = TweakConfig.startMagic;
 			Main.musicManager.play("wahwah");
+			Main.playerData.magic = checkpointMagic;
 		}, false);
 	}
 }

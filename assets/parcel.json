@@ -10,9 +10,15 @@
         { "id" : "assets/sprites/magicbar.png" },
         { "id" : "assets/sprites/goblinsbar.png" },
         { "id" : "assets/sprites/goldbar.png" },
+        { "id" : "assets/sprites/light.png" },
         { "id" : "assets/cinematic/mountain bg.png" },
         { "id" : "assets/cinematic/weapons.png" },
-        { "id" : "assets/cinematic/coins and gems.png" }
+        { "id" : "assets/cinematic/coins and gems.png" },
+        { "id" : "assets/cinematic/fireside.png" },
+        { "id" : "assets/cinematic/feather.png" },
+        { "id" : "assets/cinematic/rock.png" },
+        { "id" : "assets/cinematic/featherrock.png" },
+        { "id" : "assets/cinematic/blank.png" }
     ],
     "shaders" : [
         { "ps_id":"assets/shaders/isolate_bright.glsl" },
@@ -41,7 +47,9 @@
         { "id" : "assets/maps/level0.tmx" },
         { "id" : "assets/maps/level1.tmx" },
         { "id" : "assets/maps/level2.tmx" },
-        { "id" : "assets/maps/level3.tmx" }
+        { "id" : "assets/maps/level3.tmx" },
+        { "id" : "assets/maps/level4.tmx" },
+        { "id" : "assets/maps/level5.tmx" }
     ],
     "json" : [
         { "id" : "assets/tweakconfig.json" },

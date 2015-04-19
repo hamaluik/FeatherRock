@@ -53,7 +53,7 @@ class Main extends luxe.Game {
 		gold: 0
 	};
 	public static var gameData:GameData = {
-		currentLevel: 0
+		currentLevel: 3
 	}
 
 	public static var musicManager:MusicManager = new MusicManager();
@@ -84,6 +84,7 @@ class Main extends luxe.Game {
 
 		Luxe.input.bind_key('flap', Key.space);
 		Luxe.input.bind_key('flap', Key.key_w);
+		Luxe.input.bind_key('flap', Key.up);
 		Luxe.input.bind_key('left', Key.key_a);
 		Luxe.input.bind_key('left', Key.left);
 		Luxe.input.bind_key('right', Key.key_d);

@@ -2,7 +2,7 @@
 
 ## Story
 
-Ages and ages ago, under a long-forgotten mountain there lived an ancient race of Dwarves who were forever at war with the surrounding goblin tribes.
+In a land far far away, under a long-forgotten mountain there lived an ancient race of Dwarves who were forever at war with the surrounding goblin tribes.
 
 Each year, the dwarves held a competition to showcase their finest battlefield inventions.
 
@@ -28,6 +28,7 @@ The inventors of the mightiest and terriblest of weapons to use against the gobl
 
 - [x] Mechanics
 - [x] Cinematics
+- [ ] Ending
 - [ ] High scores?
 
 ### Art
@@ -42,14 +43,14 @@ The inventors of the mightiest and terriblest of weapons to use against the gobl
     + [x] Elf
     + [x] Goblin
 - [x] UI
-- [ ] Intro cinematic
+- [x] Intro cinematic
 - [x] Particle effects
 - [ ] Final Assets
     + FeatherRock
-        * [ ] Flying
-        * [ ] Diving
-        * [ ] On ground
-        * [ ] Getting burnt
+        * [x] Flying
+        * [x] Diving
+        * [x] On ground
+        * [x] Getting burnt
 - [x] Post-processing effects?
 
 ### Sound

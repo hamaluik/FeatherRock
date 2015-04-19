@@ -37,7 +37,7 @@ class Cinematic extends State {
 	override function onenter<T>(_:T) {
 		Luxe.camera.pos = new Vector(0, 0);
 		Luxe.camera.zoom = 1;
-		Luxe.renderer.clear_color = new Color().rgb(0x0b1827);
+		Luxe.renderer.clear_color = new Color(0, 0, 0, 1);
 
 		Main.musicManager.loop("theme");
 
