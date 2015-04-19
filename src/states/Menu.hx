@@ -37,7 +37,7 @@ class Menu extends State {
 
 	override function onkeyup(e:KeyEvent) {
 		if(e.keycode == Key.escape) {
-			Main.fsm.set('Play');
+			Main.transition('Play');
 		}
 	}
 }

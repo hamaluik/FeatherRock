@@ -4,7 +4,8 @@
         { "id" : "assets/sprites/featherrock.png" },
         { "id" : "assets/sprites/ring.png" },
         { "id" : "assets/sprites/breakable_block.png" },
-        { "id" : "assets/sprites/elf.png" }
+        { "id" : "assets/sprites/elf.png" },
+        { "id" : "assets/sprites/goblin.png" }
     ],
     "shaders" : [
         { "ps_id":"assets/shaders/isolate_bright.glsl" },
@@ -26,6 +27,7 @@
     "json" : [
         { "id" : "assets/tweakconfig.json" },
         { "id" : "assets/sprites/featherrock.json" },
-        { "id" : "assets/sprites/elf.json" }
+        { "id" : "assets/sprites/elf.json" },
+        { "id" : "assets/sprites/goblin.json" }
     ]
 }

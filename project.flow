@@ -24,7 +24,8 @@
     build : {
       dependencies : {
         luxe : '*',
-        nape : '*'
+        nape : '*',
+        actuate : '*'
       }
     },
 

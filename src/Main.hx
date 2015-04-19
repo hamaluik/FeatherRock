@@ -2,6 +2,8 @@ import components.FeatherRockAnimator;
 import components.FeatherRockPhysics;
 import components.GroundDetector;
 import components.MouseBulletTime;
+import effects.CircleTransitionEffect;
+import motion.Actuate;
 import phoenix.Camera;
 import luxe.Color;
 import luxe.components.sprite.SpriteAnimation;
@@ -50,6 +52,7 @@ class Main extends luxe.Game {
 	}
 
 	var effects:Effects = new Effects();
+	static var transitionEffect:CircleTransitionEffect = new CircleTransitionEffect();
 
 	override function ready() {
 		// load the parcel
@@ -96,12 +99,15 @@ class Main extends luxe.Game {
 		var bloomEffect:BloomEffect = new BloomEffect();
 		effects.addEffect(bloomEffect);
 		bloomEffect.threshold = TweakConfig.bloomTheshold;
+		effects.addEffect(transitionEffect);
 
 		fsm = new States();
 		fsm.add(new Menu());
 		fsm.add(new Play());
 
+		//transition('Menu');
 		fsm.set('Menu');
+		Actuate.tween(transitionEffect, 2, { transition: 1 });
 
 	} // assetsLoaded
 
@@ -127,8 +133,13 @@ class Main extends luxe.Game {
 	}
 
 	public static function transition(newState:String) {
-		// TODO: fancy transition effect
-		fsm.set(newState);
+		Luxe.timescale = 0.001;
+		Actuate.tween(transitionEffect, 1, { transition: 0 }).ease(motion.easing.Sine.easeIn).onComplete(function() {
+			fsm.set(newState);
+			Actuate.tween(transitionEffect, 1, { transition: 1 }).ease(motion.easing.Sine.easeIn).onComplete(function() {
+				Luxe.timescale = 1;
+			});
+		});
 	}
 
 } //Main
