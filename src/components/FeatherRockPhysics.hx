@@ -44,4 +44,9 @@ class FeatherRockPhysics extends Component {
 
 		entity.pos.set_xy(Math.fround(body.position.x), Math.fround(body.position.y));
 	}
+
+	override function ondestroy() {
+		if(Main.drawer != null) Main.drawer.remove(body);
+		Luxe.physics.nape.space.bodies.remove(body);
+	}
 }

@@ -31,4 +31,8 @@ class ShakeCameraOnHit extends Component {
 	override function update(dt:Float) {
 		lastVelocity = physics.body.velocity.length;
 	}
+
+	override function ondestroy() {
+		Luxe.physics.nape.space.listeners.remove(hitListener);
+	}
 }

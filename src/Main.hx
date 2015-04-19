@@ -22,23 +22,28 @@ import nape.shape.Polygon;
 import phoenix.Batcher;
 import phoenix.Texture;
 import luxe.Parcel;
+import luxe.Rectangle;
+import luxe.States;
+import states.Menu;
+import states.Play;
+import effects.Effects;
+import effects.GlitchEffect;
+import effects.BloomEffect;
 
 typedef PlayerData = {
 	var magic:Float;
 }
 
 class Main extends luxe.Game {
-	var tilemap:TiledMap;
+	public static var fsm:luxe.States;
 	public static var drawer:DebugDraw;
-
-	var featherrock:Sprite;
-
-	var uiFont:phoenix.BitmapFont;
-	var hudBatcher:Batcher;
+	public static var uiFont:phoenix.BitmapFont;
 
 	public static var playerData:PlayerData = {
 		magic: 100
 	};
+
+	var effects:Effects = new Effects();
 
 	override function ready() {
 		// load the parcel
@@ -63,7 +68,6 @@ class Main extends luxe.Game {
 
 		Luxe.renderer.clear_color = new Color().rgb(0x719ecf);
 		Luxe.camera.zoom = 2;
-		centerCameraAt(new Vector(128, 128));
 
 		Luxe.input.bind_key('flap', Key.space);
 		Luxe.input.bind_key('flap', Key.key_w);
@@ -72,167 +76,27 @@ class Main extends luxe.Game {
 		Luxe.input.bind_key('right', Key.key_d);
 		Luxe.input.bind_key('right', Key.right);
 
-		tilemap = new TiledMap({
-			tiled_file_data: Luxe.resources.find_text("assets/maps/dev.tmx").text,
-			asset_path: "assets/maps/"
-		});
-
-		tilemap.display({
-			filter: FilterType.nearest
-		});
-
-		// physics drawing
-		//drawer = new DebugDraw();
-		//Luxe.physics.nape.debugdraw = drawer;
-
-		// load all the objects
-		for(group in tilemap.tiledmap_data.object_groups) {
-			switch(group.name) {
-				case "Collisions": {
-					for(object in group.objects) {
-						switch(object.object_type) {
-							case TiledObjectType.rectangle: {
-								var box = new Body(BodyType.STATIC);
-								box.shapes.add(new Polygon(Polygon.box(object.width, object.height)));
-								box.position.setxy(object.pos.x + object.width / 2, object.pos.y + object.height / 2);
-								box.space = Luxe.physics.nape.space;
-								box.cbTypes.add(PhysicsTypes.ground);
-
-								if(drawer != null) drawer.add(box);
-							}
-
-							default: {}
-						}
-					}
-				}
-
-				case "Spawns": {
-					for(object in group.objects) {
-						switch(object.name) {
-							case "FeatherRock": {
-								spawnFeatherRock(object.pos);
-							}
-						}
-					}
-				}
-
-				case "Breakable": {
-					for(object in group.objects) {
-						spawnBreakableBlock(object.pos);
-					}
-				}
-
-				case "Elves": {
-					for(object in group.objects) {
-						spawnElf(object.pos);
-					}
-				}
-
-				case "Goal": {
-					for(object in group.objects) {
-						spawnExit(new Rectangle(object.pos.x, object.pos.y, object.width, object.height));
-					}
-				}
-
-				default: {}
-			}
-		}
-
-		createUI();
-
-	} // assetsLoaded
-
-	function createUI() {
-		hudBatcher = new Batcher(Luxe.renderer, 'hud batcher');
-		var hudView:Camera = new Camera();
-
         uiFont = Luxe.resources.find_font("assets/Minecraftia.fnt");
         for(t in uiFont.pages.iterator()) {
         	t.filter = FilterType.nearest;
         }
 
-		hudBatcher.view = hudView;
-		hudBatcher.layer = 2;
-		Luxe.renderer.add_batch(hudBatcher);
-		var magicText = new luxe.Text({
-			text: "Magic",
-			pos: new Vector(0, 0),
-			point_size: 16,
-			font: uiFont,
-			batcher: hudBatcher
-		});
-		magicText.add(new components.MagicDisplay(magicText));
-	}
+		// physics drawing
+		//drawer = new DebugDraw();
+		//Luxe.physics.nape.debugdraw = drawer;
 
-	function spawnFeatherRock(pos:Vector) {
-		var featherRockTexture:Texture = Luxe.resources.find_texture("assets/sprites/featherrock.png");
-		featherRockTexture.filter = FilterType.nearest;
-		featherrock = new Sprite({
-			name: 'FeatherRock',
-			pos: pos,
-			size: new Vector(16, 16),
-			texture: featherRockTexture
-		});
+		// load the effects
+		effects.onload();
+		effects.addEffect(new GlitchEffect({ scanlineSpeed: 1 }));
+		effects.addEffect(new BloomEffect());
 
-		featherrock.add(new FeatherRockPhysics());
+		fsm = new States();
+		fsm.add(new Menu());
+		fsm.add(new Play());
 
-		var anim:SpriteAnimation = featherrock.add(new SpriteAnimation({ name: 'SpriteAnimation' }));
-		anim.add_from_json_object(Luxe.resources.find_json('assets/sprites/featherrock.json').json);
-		anim.animation = 'flying idle';
-		anim.play();
+		fsm.set('Menu');
 
-		featherrock.add(new GroundDetector());
-		featherrock.add(new FeatherRockAnimator());
-		featherrock.add(new MouseBulletTime());
-		featherrock.add(new components.LazyCameraFollow());
-		featherrock.add(new components.ShakeCameraOnHit());
-		featherrock.add(new components.FeatherRockDiver());
-		featherrock.add(new components.FeatherRockDiveDrawer());
-
-		centerCameraAt(pos);
-	}
-
-	function spawnBreakableBlock(pos:Vector) {
-		var blockTexture:Texture = Luxe.resources.find_texture("assets/sprites/breakable_block.png");
-		blockTexture.filter = FilterType.nearest;
-
-		var block = new Sprite({
-			name: 'BreakableBlock',
-			name_unique: true,
-			pos: pos,
-			size: new Vector(16, 16),
-			texture: blockTexture
-		});
-		block.add(new components.Destructible(featherrock));
-		block.add(new components.OneShotParticlesOnDestroy(new Color().rgb(0x5d3465)));
-	}
-
-	function spawnElf(pos:Vector) {
-		var elfTexture:Texture = Luxe.resources.find_texture("assets/sprites/elf.png");
-		elfTexture.filter = FilterType.nearest;
-
-		var elf = new Sprite({
-			name: 'Elf',
-			name_unique: true,
-			pos: pos.add_xyz(8, 16),
-			size: new Vector(16, 32),
-			texture: elfTexture
-		});
-
-		var anim:SpriteAnimation = elf.add(new SpriteAnimation({ name: 'SpriteAnimation' }));
-		anim.add_from_json_object(Luxe.resources.find_json('assets/sprites/elf.json').json);
-		anim.animation = 'walk';
-		anim.play();
-
-		elf.add(new components.Destructible(featherrock, BodyType.DYNAMIC));
-		elf.add(new components.OneShotParticlesOnDestroy(new Color().rgb(0xcf0000)));
-		elf.add(new components.WalkBackAndForth(32));
-		elf.add(new components.GiveMagicOnDestroy(50));
-	}
-
-	function spawnExit(rect:luxe.Rectangle) {
-		
-	}
+	} // assetsLoaded
 
 	inline public static function centerCameraAt(_c:Vector) {
 		Luxe.camera.center = _c;
@@ -241,6 +105,18 @@ class Main extends luxe.Game {
 
 	inline public static function snapCamera() {
 		Luxe.camera.pos.set_xy(Math.fround(Luxe.camera.pos.x), Math.fround(Luxe.camera.pos.y));
+	}
+
+	override function update(dt:Float) {
+		effects.update(dt);
+	}
+
+	override function onprerender() {
+		effects.onprerender();
+	}
+
+	override function onpostrender() {
+		effects.onpostrender();
 	}
 
 } //Main

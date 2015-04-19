@@ -5,4 +5,5 @@ class PhysicsTypes {
 	public static var featherrock = new CbType();
 	public static var destructible = new CbType();
 	public static var actor = new CbType();
+	public static var trigger = new CbType();
 }

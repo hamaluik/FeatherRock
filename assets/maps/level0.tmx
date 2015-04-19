@@ -1087,9 +1087,7 @@
    <ellipse/>
   </object>
  </objectgroup>
- <objectgroup color="#00ff00" name="Elves">
-  <object x="224" y="16" width="16" height="32"/>
- </objectgroup>
+ <objectgroup color="#00ff00" name="Elves"/>
  <objectgroup color="#55aaff" name="Goal">
   <object x="208" y="176" width="16" height="48"/>
  </objectgroup>

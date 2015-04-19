@@ -7,6 +7,10 @@
         { "id" : "assets/sprites/elf.png" }
     ],
     "shaders" : [
+        { "ps_id":"assets/shaders/isolate_bright.glsl" },
+        { "ps_id":"assets/shaders/blur.glsl" },
+        { "ps_id":"assets/shaders/glitch.glsl" },
+        { "ps_id":"assets/shaders/circleout.glsl" }
     ],
     "fonts" : [
         { "id" : "assets/Minecraftia.fnt" }

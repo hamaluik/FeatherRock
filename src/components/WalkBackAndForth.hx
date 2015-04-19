@@ -60,4 +60,8 @@ class WalkBackAndForth extends Component {
 		body.velocity.x = walkSpeed * direction;
 		entity.pos.set_xy(body.position.x, body.position.y);
 	}
+
+	override function ondestroy() {
+		Luxe.physics.nape.space.listeners.remove(hitListener);
+	}
 }

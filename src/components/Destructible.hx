@@ -57,5 +57,6 @@ class Destructible extends Component {
 	override function ondestroy() {
 		if(Main.drawer != null) Main.drawer.remove(body);
 		Luxe.physics.nape.space.bodies.remove(body);
+		Luxe.physics.nape.space.listeners.remove(hitListener);
 	}
 }

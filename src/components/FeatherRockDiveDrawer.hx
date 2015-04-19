@@ -60,4 +60,10 @@ class FeatherRockDiveDrawer extends Component {
 			}
 		}
 	}
+
+	override function ondestroy() {
+		for(sprite in sprites) {
+			sprite.destroy();
+		}
+	}
 } 
