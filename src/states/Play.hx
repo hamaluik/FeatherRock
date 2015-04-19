@@ -41,9 +41,11 @@ class Play extends State {
 	}
 
 	override function onenter<T>(_:T) {
-		trace("Entered play");
+		var level:String = "assets/maps/level" + Main.gameData.currentLevel + ".tmx";
+		trace("Loading level: " + level);
+
 		tilemap = new TiledMap({
-			tiled_file_data: Luxe.resources.find_text("assets/maps/dev.tmx").text,
+			tiled_file_data: Luxe.resources.find_text(level).text,
 			asset_path: "assets/maps/"
 		});
 

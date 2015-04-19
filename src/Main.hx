@@ -27,11 +27,14 @@ import luxe.States;
 import states.Menu;
 import states.Play;
 import effects.Effects;
-import effects.GlitchEffect;
 import effects.BloomEffect;
 
 typedef PlayerData = {
 	var magic:Float;
+}
+
+typedef GameData = {
+	var currentLevel:Int;
 }
 
 class Main extends luxe.Game {
@@ -42,6 +45,9 @@ class Main extends luxe.Game {
 	public static var playerData:PlayerData = {
 		magic: 100
 	};
+	public static var gameData:GameData = {
+		currentLevel: 0
+	}
 
 	var effects:Effects = new Effects();
 
@@ -87,8 +93,9 @@ class Main extends luxe.Game {
 
 		// load the effects
 		effects.onload();
-		effects.addEffect(new GlitchEffect({ scanlineSpeed: 1 }));
-		effects.addEffect(new BloomEffect());
+		var bloomEffect:BloomEffect = new BloomEffect();
+		effects.addEffect(bloomEffect);
+		bloomEffect.threshold = TweakConfig.bloomTheshold;
 
 		fsm = new States();
 		fsm.add(new Menu());
@@ -117,6 +124,11 @@ class Main extends luxe.Game {
 
 	override function onpostrender() {
 		effects.onpostrender();
+	}
+
+	public static function transition(newState:String) {
+		// TODO: fancy transition effect
+		fsm.set(newState);
 	}
 
 } //Main

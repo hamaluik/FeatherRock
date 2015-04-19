@@ -19,7 +19,9 @@
         { "id" : "assets/music/theme.ogg", "name" : "theme", "is_stream" : false}
     ],
     "text" : [
-        { "id" : "assets/maps/dev.tmx" }
+        { "id" : "assets/maps/dev.tmx" },
+        { "id" : "assets/maps/level0.tmx" },
+        { "id" : "assets/maps/level1.tmx" }
     ],
     "json" : [
         { "id" : "assets/tweakconfig.json" },

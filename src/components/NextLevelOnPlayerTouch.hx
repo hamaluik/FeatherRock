@@ -39,7 +39,8 @@ class NextLevelOnPlayerTouch extends Component {
 	}
 
 	function onFeatherRockTouch(cb:InteractionCallback) {
-		trace("NEXT LEVEL");
+		Main.gameData.currentLevel++;
+		Main.transition('Play');
 	}
 
 	override function ondestroy() {
