@@ -27,7 +27,8 @@ class OneShotParticlesOnDestroy extends Component {
 			end_size: new Vector(4, 4),
 			end_size_random: new Vector(0, 0),
 			start_color: particleColor,
-			end_color: particleColor
+			end_color: particleColor,
+			depth: 100
 		});
 		particles.pos = entity.pos;
 

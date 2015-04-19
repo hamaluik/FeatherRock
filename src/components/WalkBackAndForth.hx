@@ -38,7 +38,7 @@ class WalkBackAndForth extends Component {
 		body.allowRotation = false;
 		body.cbTypes.add(PhysicsTypes.actor);
 
-		hitListener = new InteractionListener(CbEvent.BEGIN, InteractionType.COLLISION, [PhysicsTypes.destructible, PhysicsTypes.ground], PhysicsTypes.actor, onHit);
+		hitListener = new InteractionListener(CbEvent.BEGIN, InteractionType.COLLISION, [PhysicsTypes.destructible, PhysicsTypes.ground, PhysicsTypes.featherrock], PhysicsTypes.actor, onHit);
 		Luxe.physics.nape.space.listeners.add(hitListener);
 
 		animator = cast entity.get('SpriteAnimation');

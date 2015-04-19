@@ -105,7 +105,6 @@ class Main extends luxe.Game {
 		fsm.add(new Menu());
 		fsm.add(new Play());
 
-		//transition('Menu');
 		fsm.set('Menu');
 		Actuate.tween(transitionEffect, 2, { transition: 1 });
 

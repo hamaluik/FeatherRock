@@ -99,6 +99,12 @@ class Play extends State {
 					}
 				}
 
+				case "Goblins": {
+					for(object in group.objects) {
+						spawnGoblin(object.pos);
+					}
+				}
+
 				case "Goal": {
 					for(object in group.objects) {
 						spawnExit(new Rectangle(object.pos.x, object.pos.y, object.width, object.height));
@@ -207,7 +213,30 @@ class Play extends State {
 		elf.add(new components.Destructible(featherrock, BodyType.DYNAMIC));
 		elf.add(new components.OneShotParticlesOnDestroy(new Color().rgb(0xcf0000)));
 		elf.add(new components.WalkBackAndForth(32));
-		elf.add(new components.GiveMagicOnDestroy(50));
+		elf.add(new components.GiveMagicOnDestroy(50, hudBatcher));
+	}
+
+	function spawnGoblin(pos:Vector) {
+		var goblinTexture:Texture = Luxe.resources.find_texture("assets/sprites/goblin.png");
+		goblinTexture.filter = FilterType.nearest;
+
+		var goblin = new Sprite({
+			name: 'goblin',
+			name_unique: true,
+			pos: pos.add_xyz(8, 16),
+			size: new Vector(16, 18),
+			texture: goblinTexture,
+			scene: playScene
+		});
+
+		var anim:SpriteAnimation = goblin.add(new SpriteAnimation({ name: 'SpriteAnimation' }));
+		anim.add_from_json_object(Luxe.resources.find_json('assets/sprites/goblin.json').json);
+		anim.animation = 'walk';
+		anim.play();
+
+		goblin.add(new components.Destructible(featherrock, BodyType.DYNAMIC));
+		goblin.add(new components.OneShotParticlesOnDestroy(new Color().rgb(0xcf0000)));
+		goblin.add(new components.WalkBackAndForth(32));
 	}
 
 	function spawnExit(rect:luxe.Rectangle) {

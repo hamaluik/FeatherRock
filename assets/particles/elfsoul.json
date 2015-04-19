@@ -1,0 +1,96 @@
+{
+    "emit_time": 0.013392857142857142,
+    "emit_count": 1,
+    "direction": 0,
+    "direction_random": 360,
+    "speed": 2.8125,
+    "speed_random": 0,
+    "end_speed": 0,
+    "life": 1.0044642857142858,
+    "life_random": 0,
+    "rotation": 0,
+    "rotation_random": 0,
+    "end_rotation": 0,
+    "end_rotation_random": 0,
+    "rotation_offset": 0,
+    "pos_offset": {
+        "_construct": false,
+        "ignore_listeners": false,
+        "w": 0,
+        "z": 0,
+        "y": 0,
+        "x": 2.6785714285714164
+    },
+    "pos_random": {
+        "_construct": false,
+        "ignore_listeners": false,
+        "w": 0,
+        "z": 0,
+        "y": 5,
+        "x": 5
+    },
+    "gravity": {
+        "_construct": false,
+        "ignore_listeners": false,
+        "w": 0,
+        "z": 0,
+        "y": -0.8928571428571388,
+        "x": 0
+    },
+    "start_size": {
+        "_construct": false,
+        "ignore_listeners": false,
+        "w": 0,
+        "z": 0,
+        "y": 2,
+        "x": 2
+    },
+    "start_size_random": {
+        "_construct": false,
+        "ignore_listeners": false,
+        "w": 0,
+        "z": 0,
+        "y": 0,
+        "x": 0
+    },
+    "end_size": {
+        "_construct": false,
+        "ignore_listeners": false,
+        "w": 0,
+        "z": 0,
+        "y": 2,
+        "x": 2
+    },
+    "end_size_random": {
+        "_construct": false,
+        "ignore_listeners": false,
+        "w": 0,
+        "z": 0,
+        "y": 0,
+        "x": 0
+    },
+    "start_color": {
+        "v": 0.5,
+        "s": 0,
+        "h": 60,
+        "refreshing": false,
+        "is_hsv": true,
+        "is_hsl": false,
+        "a": 1,
+        "b": 0.5,
+        "g": 0.5,
+        "r": 0.5
+    },
+    "end_color": {
+        "v": 0.5,
+        "s": 1,
+        "h": 143.03571428571428,
+        "refreshing": false,
+        "is_hsv": true,
+        "is_hsl": false,
+        "a": 0,
+        "b": 0.1919642857142856,
+        "g": 0.5,
+        "r": 0
+    }
+}
