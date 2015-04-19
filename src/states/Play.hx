@@ -374,6 +374,7 @@ class Play extends State {
 		featherRock.remove('LazyCameraFollow');
 		featherRock.remove('LoseMagicOverTime');
 		featherRock.remove('FeatherRockControls');
+		cast(featherRock.get('FeatherRockPhysics'), FeatherRockPhysics).body.velocity.setxy(0, 0);
 
 		// create a new burnt featherrock
 		var featherRockTexture:Texture = Luxe.resources.find_texture("assets/sprites/featherrock.png");

@@ -11,6 +11,7 @@ class TweakConfig {
 	public static var rockElasticity(default, null):Float = 0.2;
 	public static var startMagic(default, null):Float = 100;
 	public static var magicDrainSpeed(default, null):Float = 1;
+	public static var destructionFreezeTime(default, null):Float = 0.1;
 
 	public static function load(json) {
 		if(json.flapStrength != null) flapStrength = json.flapStrength;
@@ -25,5 +26,6 @@ class TweakConfig {
 		if(json.rockElasticity != null) rockElasticity = json.rockElasticity;
 		if(json.startMagic != null) startMagic = json.startMagic;
 		if(json.magicDrainSpeed != null) magicDrainSpeed = json.magicDrainSpeed;
+		if(json.destructionFreezeTime != null) destructionFreezeTime = json.destructionFreezeTime;
 	}
 }

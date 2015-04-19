@@ -112,8 +112,7 @@ class Main extends luxe.Game {
 		fsm.add(new Menu());
 		fsm.add(new Play());
 
-		fsm.set('Cinematic');
-		//Actuate.tween(transitionEffect, 2, { transition: 1 });
+		fsm.set('Play');
 
 	} // assetsLoaded
 

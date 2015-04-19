@@ -46,7 +46,12 @@ class Destructible extends Component {
 
 	function onFeatherRockHit(cb:InteractionCallback) {
 		if(lastVelocity >= TweakConfig.blockBreakVelocity && cb.int1.castBody.id == body.id) {
-			entity.destroy();
+			//entity.destroy();
+			Luxe.timescale = 0.001;
+			Luxe.timer.schedule(TweakConfig.destructionFreezeTime, function() {
+				entity.destroy();
+				Luxe.timescale = 1;
+			}, false);
 		}
 	}
 
