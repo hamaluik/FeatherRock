@@ -76,6 +76,8 @@ class Cinematic extends State {
 		cinematicImage.filter = FilterType.nearest;
 		picture.texture = cinematicImage;
 		caption.text = slide.text;
+
+		Main.musicManager.loop("theme");
 	}
 
 	override function onmouseup(e:MouseEvent) {

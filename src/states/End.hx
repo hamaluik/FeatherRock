@@ -81,6 +81,6 @@ class End extends State {
 	}
 
 	override function onmouseup(e:MouseEvent) {
-		Main.transition('Cinematic');
+		Main.transition('Menu');
 	}
 }

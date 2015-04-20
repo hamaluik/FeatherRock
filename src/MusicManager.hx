@@ -39,4 +39,12 @@ class MusicManager {
 		trace("Playing sound: " + name);
 		Luxe.audio.play(name);
 	}
+
+	public function setMute(mute:Bool) {
+		for(sound in sounds.iterator()) {
+			if(sound.playing) {
+				Luxe.audio.volume(sound.name, mute ? 0 : 0.05);
+			}
+		}
+	}
 }

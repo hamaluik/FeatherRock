@@ -41,6 +41,7 @@ typedef PlayerData = {
 
 typedef GameData = {
 	var currentLevel:Int;
+	var mute:Bool;
 }
 
 class Main extends luxe.Game {
@@ -48,15 +49,14 @@ class Main extends luxe.Game {
 	public static var drawer:DebugDraw;
 	public static var uiFont:phoenix.BitmapFont;
 
-	public static var maxLevel:Int = 6;
-
 	public static var playerData:PlayerData = {
 		magic: 100,
 		goblins: 0,
 		gold: 0
 	};
 	public static var gameData:GameData = {
-		currentLevel: 7
+		currentLevel: 0,
+		mute: false
 	}
 
 	public static var musicManager:MusicManager = new MusicManager();
@@ -125,7 +125,7 @@ class Main extends luxe.Game {
 		fsm.add(new Play());
 		fsm.add(new End());
 
-		fsm.set('End');
+		fsm.set('Cinematic');
 
 	} // assetsLoaded
 
@@ -158,6 +158,14 @@ class Main extends luxe.Game {
 				Luxe.timescale = 1;
 			});
 		});
+	}
+
+	override function onkeyup(e:KeyEvent) {
+		if(e.keycode == Key.key_m) {
+			gameData.mute = !gameData.mute;
+
+			musicManager.setMute(gameData.mute);
+		}
 	}
 
 } //Main

@@ -363,7 +363,7 @@ class Play extends State {
 		var block = new Sprite({
 			name: 'Chest',
 			name_unique: true,
-			pos: pos,
+			pos: pos.clone().add_xyz(16, 8),
 			size: new Vector(32, 16),
 			texture: chestTexture,
 			scene: playScene
@@ -432,7 +432,7 @@ class Play extends State {
 		exit.add(new components.Trigger(rect, function() {
 			Main.musicManager.play("tada");
 			Main.gameData.currentLevel++;
-			if(Main.gameData.currentLevel > Main.maxLevel) {
+			if(Main.gameData.currentLevel > TweakConfig.maxLevel) {
 				Main.transition('End');
 			}
 			else {
