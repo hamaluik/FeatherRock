@@ -3,5 +3,7 @@
 	"moveSpeed": 100,
 	"blockBreakVelocity": 750,
 	"screenShakeAmount": 8,
-	"startMagic": 10
+	"startMagic": 20,
+	"elfMagic": 20,
+	"maxMagicBarSize": 50
 }

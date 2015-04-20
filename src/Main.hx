@@ -27,6 +27,7 @@ import luxe.Parcel;
 import luxe.Rectangle;
 import luxe.States;
 import states.Cinematic;
+import states.End;
 import states.Menu;
 import states.Play;
 import effects.Effects;
@@ -46,6 +47,8 @@ class Main extends luxe.Game {
 	public static var fsm:luxe.States;
 	public static var drawer:DebugDraw;
 	public static var uiFont:phoenix.BitmapFont;
+
+	public static var maxLevel:Int = 6;
 
 	public static var playerData:PlayerData = {
 		magic: 100,
@@ -120,8 +123,9 @@ class Main extends luxe.Game {
 		fsm.add(new Cinematic());
 		fsm.add(new Menu());
 		fsm.add(new Play());
+		fsm.add(new End());
 
-		fsm.set('Play');
+		fsm.set('End');
 
 	} // assetsLoaded
 

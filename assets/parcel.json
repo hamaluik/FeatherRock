@@ -4,6 +4,7 @@
         { "id" : "assets/sprites/featherrock.png" },
         { "id" : "assets/sprites/ring.png" },
         { "id" : "assets/sprites/breakable_block.png" },
+        { "id" : "assets/sprites/chest.png" },
         { "id" : "assets/sprites/elf.png" },
         { "id" : "assets/sprites/goblin.png" },
         { "id" : "assets/sprites/indicator ui.png" },

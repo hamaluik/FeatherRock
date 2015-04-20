@@ -18,6 +18,7 @@ class TweakConfig {
 	public static var maxMagicBarSize(default, null):Float = 30;
 	public static var maxGoblinBarSize(default, null):Float = 100;
 	public static var maxGoldBarSize(default, null):Float = 1000;
+	public static var defaultChestGold(default, null):Float = 50;
 
 	public static function load(json) {
 		if(json.flapStrength != null) flapStrength = json.flapStrength;
@@ -38,5 +39,6 @@ class TweakConfig {
 		if(json.maxMagicBarSize != null) maxMagicBarSize = json.maxMagicBarSize;
 		if(json.maxGoblinBarSize != null) maxGoblinBarSize = json.maxGoblinBarSize;
 		if(json.maxGoldBarSize != null) maxGoldBarSize = json.maxGoldBarSize;
+		if(json.defaultChestGold != null) defaultChestGold = json.defaultChestGold;
 	}
 }

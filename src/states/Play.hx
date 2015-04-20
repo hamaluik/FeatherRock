@@ -115,6 +115,12 @@ class Play extends State {
 					}
 				}
 
+				case "Chests": {
+					for(object in group.objects) {
+						spawnChest(object.pos, object.properties.get('amount') == null ? TweakConfig.defaultChestGold : Std.parseFloat(object.properties.get('amount')));
+					}
+				}
+
 				case "Elves": {
 					for(object in group.objects) {
 						spawnElf(object.pos);
@@ -350,6 +356,24 @@ class Play extends State {
 		block.add(new components.PlaySoundOnDestroyed("blockbreak"));
 	}
 
+	function spawnChest(pos:Vector, amount:Float) {
+		var chestTexture:Texture = Luxe.resources.find_texture("assets/sprites/chest.png");
+		chestTexture.filter = FilterType.nearest;
+
+		var block = new Sprite({
+			name: 'Chest',
+			name_unique: true,
+			pos: pos,
+			size: new Vector(32, 16),
+			texture: chestTexture,
+			scene: playScene
+		});
+		block.add(new components.Destructible(featherRock));
+		block.add(new components.OneShotParticlesOnDestroy(new Color().rgb(0x8a5828)));
+		block.add(new components.PlaySoundOnDestroyed("blockbreak"));
+		block.add(new components.GiveOnDestroy(CollectibleType.gold, amount, featherRock));
+	}
+
 	function spawnElf(pos:Vector) {
 		var elfTexture:Texture = Luxe.resources.find_texture("assets/sprites/elf.png");
 		elfTexture.filter = FilterType.nearest;
@@ -408,7 +432,12 @@ class Play extends State {
 		exit.add(new components.Trigger(rect, function() {
 			Main.musicManager.play("tada");
 			Main.gameData.currentLevel++;
-			Main.transition('Play');
+			if(Main.gameData.currentLevel > Main.maxLevel) {
+				Main.transition('End');
+			}
+			else {
+				Main.transition('Play');
+			}
 		}));
 	}
 
