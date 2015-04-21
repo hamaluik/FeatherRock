@@ -60,16 +60,17 @@ class Play extends State {
 	override function onenter<T>(_:T) {
 		Luxe.camera.zoom = 3;
 		//Luxe.renderer.clear_color = new Color().rgb(0x719ecf);
-		Luxe.renderer.clear_color = new Color().rgb(0x0b1827);
+		//Luxe.renderer.clear_color = new Color().rgb(0x0b1827);
+		Luxe.renderer.clear_color = new Color(1, 1, 1, 1);
 
-		Main.musicManager.loop("theme");
+		//Main.musicManager.loop("theme");
 
 		var level:String = "assets/maps/level" + Main.gameData.currentLevel + ".tmx";
 		trace("Loading level: " + level);
 
-		createBG();
+		//createBG();
 
-		tilemap = new TiledMap({
+		tilemap = new StaticTiledmap({//new TiledMap({
 			tiled_file_data: Luxe.resources.find_text(level).text,
 			asset_path: "assets/maps/"
 		});

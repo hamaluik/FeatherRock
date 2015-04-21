@@ -63,7 +63,7 @@ class Menu extends State {
 		});
 
 		var disclaimer:Text = new Text({
-			pos: new Vector(Luxe.screen.w, Luxe.screen.h),
+			pos: new Vector(Luxe.screen.w - 8, Luxe.screen.h),
 			text: "* A game made from scratch in 48 hours for Ludum Dare 32 by Kenton Hamaluik Apr. 18-19 2015",
 			align: TextAlign.right,
 			align_vertical: TextAlign.bottom,

@@ -115,7 +115,7 @@ class Main extends luxe.Game {
 		// load the effects
 		effects.onload();
 		var bloomEffect:BloomEffect = new BloomEffect();
-		effects.addEffect(bloomEffect);
+		//effects.addEffect(bloomEffect);
 		bloomEffect.threshold = TweakConfig.bloomTheshold;
 		effects.addEffect(transitionEffect);
 
@@ -125,7 +125,7 @@ class Main extends luxe.Game {
 		fsm.add(new Play());
 		fsm.add(new End());
 
-		fsm.set('Cinematic');
+		fsm.set('Play');
 
 	} // assetsLoaded
 
